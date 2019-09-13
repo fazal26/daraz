@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   rolify
+
+  has_one_attached:image
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -23,8 +26,8 @@ class User < ApplicationRecord
   end
 
   private
-  
-  def facebook_auth(auth)
+
+  def self.facebook_auth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
@@ -36,7 +39,7 @@ class User < ApplicationRecord
     end
   end
 
-  def google_auth(auth)
+  def self.google_auth(auth)
     data = auth.info
     user = User.where(email: data['email']).first
     # if auth.provider == :google_oauth2

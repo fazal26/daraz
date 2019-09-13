@@ -1,0 +1,29 @@
+<% if @user.id == current_user.id%>
+  <div style="text-align:center">
+    <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-warning"%>
+  </div>
+<% end %>
+<br>
+<div class = "well">
+  <div class = "row">
+    <div class = "col-sm-7">
+      <div class = "row">
+        <div class = col-sm-4>
+          <h3>Username: </h3>
+          <h3>Email: </h3>
+        </div>
+        <div class = col-sm-8>
+          <% if !@user.username.nil? %>
+            <h3><%= @user.username%></h3>
+          <% else %>
+            <h3>**</h3>
+          <% end %>
+         <h3><%= @user.email%></h3>
+        </div>
+      </div>
+    </div>
+    <div class = "col-sm-5">
+      <%= image_tag(user_image(@user) , style: "width:20vw", class: "img-rounded")%>
+    </div>
+  </div>
+</div>
