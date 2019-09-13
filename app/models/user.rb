@@ -1,3 +1,4 @@
+require 'open-uri'
 class User < ApplicationRecord
   rolify
 
@@ -12,7 +13,7 @@ class User < ApplicationRecord
   def self.from_omniauth(auth)
     if auth.provider === 'facebook'
       facebook_auth(auth)
-    else
+    elsif auth.provider === 'google_oauth2'
       google_auth(auth)
     end
   end
@@ -28,11 +29,14 @@ class User < ApplicationRecord
   private
 
   def self.facebook_auth(auth)
+    puts "---------\n"*5, auth.info.image.inspect
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
-      # user.name = auth.info.name   # assuming the user model has a name
-      # user.image = auth.info.image # assuming the user model has an image
+      user.username = auth.info.name
+      downloaded_image = open(auth.info.image)
+      user.image.attach(io: downloaded_image  , filename: "foo.jpg")
+      # user.image.attach(auth.info.image)
       # If you are using confirmable and the provider(s) you use validate emails, 
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
@@ -40,21 +44,18 @@ class User < ApplicationRecord
   end
 
   def self.google_auth(auth)
-    data = auth.info
-    user = User.where(email: data['email']).first
-    # if auth.provider == :google_oauth2
-    #   user.token = auth.credentials.token
-    #   user.expires = auth.credentials.expires
-    #   user.expires_at = auth.credentials.expires_at
-    #   user.refresh_token = auth.credentials.refresh_token
-    # end
-    # Uncomment the section below if you want users to be created if they don't exist
-    # unless user
-    #     user = User.create(name: data['name'],
-    #        email: data['email'],
-    #        password: Devise.friendly_token[0,20]
-    #     )
-    # end
+    user = User.where(email: data.email).first
+    # user.token = auth.credentials.token
+    # user.expires = auth.credentials.expires
+    # user.expires_at = auth.credentials.expires_at
+    # user.refresh_token = auth.credentials.refresh_token
+    unless user
+        user = User.create(username: data.name,
+           email: data.email,
+           password: Devise.friendly_token[0,20],
+        )
+        user.image = data.image
+    end
     user
   end
 end
