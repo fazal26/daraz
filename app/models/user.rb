@@ -2,7 +2,10 @@ require 'open-uri'
 class User < ApplicationRecord
   rolify
 
-  has_one_attached:image
+  has_one_attached :image
+  has_one :role
+
+  # validates :username, presence: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

@@ -8,6 +8,13 @@ class UsersController < ApplicationController
   def show
   end
 
+  def new
+  end
+
+  def create
+    puts "________________\n"*100, params.inspect
+  end
+
   def edit
   end
 
