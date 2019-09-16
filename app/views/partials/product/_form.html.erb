@@ -1,0 +1,8 @@
+<div class="well">
+  <%= form_for ([@user, @user.products.build]) do |form| %>
+    <%= form.text_field :title, label: "Title" %>
+    <%= form.text_field :price, type: :number, label: "Price" %>
+    <%= form.file_field :image, multiple: true, label: "Attachements", class: "btn-primary" %>
+    <%= form.submit %>
+  <% end %>
+</div>

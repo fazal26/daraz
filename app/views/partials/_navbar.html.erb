@@ -4,6 +4,8 @@
       <% if user_signed_in? %>
         <div style="float:right">
           <%= link_to "Profile", user_path(current_user) %>
+          <%= link_to "Add Product", new_user_product_url(current_user), class: "btn-success" %>
+
           <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
         </div>
       <% else %>

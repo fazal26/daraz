@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   # devise_scope :user do
   #   delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   # end
-  resources :users
+  resources :users do
+    resources :products
+  end
+  
   
   root to: 'application#landing_page'
   # ---------------------------

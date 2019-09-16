@@ -3,7 +3,10 @@ class User < ApplicationRecord
   rolify
 
   has_one_attached :image
-  has_one :role
+  has_many :users_roles
+  has_many :products
+  has_many :roles, through: :users_roles
+
 
   # validates :username, presence: true
 
