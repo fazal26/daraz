@@ -1,0 +1,8 @@
+OKTA_CLIENT_ID: "0oa1cf9jyxm5LJMzA357"
+OKTA_CLIENT_SECRET: "Sb92_HBXMmmCpbj8N0B7evnJ8R_MvS9opN-6Coij"
+OKTA_ORG: "Devsinc"
+OKTA_DOMAIN: "oktapreview"
+OKTA_URL: "https://dev-180006.okta.com"
+OKTA_ISSUER: "https://dev-180006.okta.com/oauth2/default"
+OKTA_AUTH_SERVER_ID: "default"
+OKTA_REDIRECT_URI: "http://localhost:3000/users/auth/oktaoauth/callback"
