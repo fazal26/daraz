@@ -1,1 +1,19 @@
  @import "bootstrap";
+
+ .products {
+  //  flex-flow: wrap;
+ }
+ .product_item{
+    border-radius: 5px;
+    width: 20vw;
+    font-size: 1em;
+    margin-right: 2vw;
+ }
+ .product_price {
+   color: green;
+ }
+ .product_actions {
+   width: 20vw;
+   text-align: center;
+   padding: 5px;
+ }
