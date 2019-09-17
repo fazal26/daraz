@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   end
 
   def create
-    puts "________________\n"*100, params.inspect
   end
 
   def edit

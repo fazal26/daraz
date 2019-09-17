@@ -6,8 +6,9 @@ class Product < ApplicationRecord
 
 
   def self.create_product(params)
-    puts "XXXXXXXXXXXXXXXx\n"*10, params.inspect
-    product = Product.create!({title: params[:title], price: params[:price], user_id: current_user.id})
+    product = Product.new({title: params[:title], price: params[:price], user_id: current_user.id})
+    product.images.attach(params[:image])
+    product.save!
     product    
   end
 end
