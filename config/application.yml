@@ -6,3 +6,6 @@ OKTA_URL: "https://dev-180006.okta.com"
 OKTA_ISSUER: "https://dev-180006.okta.com/oauth2/default"
 OKTA_AUTH_SERVER_ID: "default"
 OKTA_REDIRECT_URI: "http://localhost:3000/users/auth/oktaoauth/callback"
+
+PUBLISHABLE_KEY: "pk_test_5w2QiT8pnzcLSzxyDBpNNdCA00SSc6AoX7"
+SECRET_KEY: "sk_test_sczHYDHVIYPbTUkOJpjYLou600UJtH5Gev"

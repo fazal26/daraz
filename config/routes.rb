@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resources :users do
     resources :products
   end
+
+  resources :charges
+
   
   
   root to: 'application#landing_page'
