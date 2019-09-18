@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
   has_many_attached :images
+  has_many :comments, as: :commentable, dependent: :destroy
+
   belongs_to :user
 
   cattr_accessor :current_user

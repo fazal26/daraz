@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :get_product, only:[:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.where(user_id: current_user.id)
+    @products = Product.all
   end
 
   def new
@@ -15,6 +15,8 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @comments = Comment.where(product_id: @product.id)
+    @comment = Comment.new
   end
 
   def edit

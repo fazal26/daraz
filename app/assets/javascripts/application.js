@@ -16,3 +16,8 @@
 //= require turbolinks
 //= requrie bootstrap-sprockets
 //= require_tree .
+
+var reply = function(id) {
+  document.getElementById('comment_body').placeholder = 'Reply: ';
+  document.getElementById('parent_value').value = id;
+};
