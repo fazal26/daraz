@@ -1,11 +1,11 @@
 class ProductsController < ApplicationController
-  before_action :get_product, only:[:show, :edit, :update, :delete]
+  before_action :get_product, only:[:show, :edit, :update, :destroy]
+
   def index
     @products = Product.where(user_id: current_user.id)
   end
 
   def new
-    @user = current_user
     @product = Product.new
   end
 
@@ -21,6 +21,11 @@ class ProductsController < ApplicationController
   end
 
   def update
+  end
+
+  def destroy
+    @product.delete
+    redirect_to user_products_path(current_user)
   end
 
   private

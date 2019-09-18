@@ -1,6 +1,6 @@
 <div class="well">
-<h1>Title: <%= @product.title%></h1>
-<h1>Price: <%= @product.price%></h1>
+<h1><%= @product.title%></h1>
+<h1>Price: <%= @product.price%>$</h1>
 <% @product.images.each do |image| %>
   <%= image_tag(image, style: "width:20vw", class: "img-rounded") %>
 <% end %>
