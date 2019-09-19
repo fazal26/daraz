@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.create_product(product_params)
+    product = Product.create_with_image(product_params)
     redirect_to user_products_path(current_user)
   end
 
@@ -19,10 +19,9 @@ class ProductsController < ApplicationController
     @comment = Comment.new
   end
 
-  def edit
-  end
-
   def update
+    @product.update!(product_params)
+    redirect_to user_products_path(current_user)
   end
 
   def destroy

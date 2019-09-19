@@ -1,22 +1,6 @@
 class UsersController < ApplicationController
   before_action :get_user, only:[:show, :update, :destory, :edit]
 
-  def index
-    @users = User.all
-  end
-
-  def show
-  end
-
-  def new
-  end
-
-  def create
-  end
-
-  def edit
-  end
-
   def update
     @user.update!(edit_user_params)
     redirect_to user_path(@user)    

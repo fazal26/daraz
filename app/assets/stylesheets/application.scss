@@ -26,3 +26,21 @@
    background: beige;
     border-radius: 7px;
  }
+
+ .newCommentBody{
+  border-radius: 5px;
+  width: 70vw;
+  height: 3vw;
+
+}
+
+.editCommentBody{
+  border-radius: 5px;
+  width: 50vw;
+  height: 3vw;
+
+}
+input::placeholder {
+  font-size: 0.7em;
+
+}

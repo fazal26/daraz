@@ -17,11 +17,13 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
 
   def self.from_omniauth(auth)
-    if auth.provider === 'facebook'
-      facebook_auth(auth)
-    elsif auth.provider === 'google_oauth2'
-      google_auth(auth)
-    end
+    method_name = "#{auth.provider}_auth"
+    self.send(method_name, auth) if defined?(method_name)
+    # if auth.provider === 'facebook'
+    #   facebook_auth(auth)
+    # elsif auth.provider === 'google_oauth2'
+    #   google_auth(auth)
+    # end
   end
 
   def self.new_with_session(params, session)

@@ -10,8 +10,14 @@ class CommentsController < ApplicationController
     @comment.save!
   end
 
-  private
-  def comment_params
-    params.require(:comment).permit(:body, :product_id, :id, :parent_id)
+  def destroy
+    comment = Comment.find(params[:id])
+    comment.delete # .destroy
+    redirect_back(fallback_location: root_path)
   end
+
+  private
+    def comment_params
+      params.fetch(:comment).permit(:body, :product_id, :id)
+    end
 end

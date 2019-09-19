@@ -1,0 +1,6 @@
+<%= form_for comment, remote: true do |f| %>
+  <%= f.text_field :body, class: "editCommentBody"%>
+  <%= f.submit "Comment" ,style:"display:none"%>
+<% end %>
+<br>
+
