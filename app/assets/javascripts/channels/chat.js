@@ -2,6 +2,7 @@ App.chat = App.cable.subscriptions.create("ChatChannel", {
   connected: function() {},
   disconnected: function() {},
   received: function(data) {
+    console.log("DATA RECIEVED")
     var comments;
     if (data['parent_id']){      
       var path = "#comment-"+ data.parent_id;
@@ -10,6 +11,6 @@ App.chat = App.cable.subscriptions.create("ChatChannel", {
       comments = $('#commentBox');
     }
     comments.prepend(data['comment']);
-    comments.scrollTop(comments[0].scrollHeight);
+    // comments.scrollTop(comments[0].scrollHeight);
   }
 });

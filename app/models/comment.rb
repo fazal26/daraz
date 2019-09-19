@@ -4,6 +4,7 @@ class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
 
   after_create_commit {
+    puts "AFTER COMMIT\n"*5
     CommentBroadcastJob.perform_later(self);
   }
 end

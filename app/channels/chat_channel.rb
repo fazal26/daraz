@@ -1,5 +1,6 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
+    puts "CHANNEL SUBSCRIBED\n"*5
     stream_from "chat"
   end
 
