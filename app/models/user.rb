@@ -1,13 +1,8 @@
 require 'open-uri'
 class User < ApplicationRecord
-  rolify
-
   has_one_attached :image
-  has_many :users_roles
   has_many :products
   has_many :comments
-  has_many :roles, through: :users_roles
-
 
   # validates :username, presence: true
 
