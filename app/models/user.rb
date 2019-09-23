@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_one_attached :image
   has_many :users_roles
   has_many :products
+  has_many :comments
   has_many :roles, through: :users_roles
 
 
@@ -44,7 +45,7 @@ class User < ApplicationRecord
       downloaded_image = open(auth.info.image)
       user.image.attach(io: downloaded_image  , filename: "foo.jpg")
       # user.image.attach(auth.info.image)
-      # If you are using confirmable and the provider(s) you use validate emails, 
+      # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end
