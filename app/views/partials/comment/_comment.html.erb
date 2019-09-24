@@ -1,0 +1,15 @@
+<div class = "row">
+  <div class="col-sm-10">
+      <%= image_tag(user_image(comment.user) , style: "width:3vw; border-radius:50px")%>
+      <%= comment.body%>
+  </div>
+  <div class="col-sm-2">
+      <div class="row" style="font-size: 0.7em">
+      <p class = "float:right"><%= time_ago_in_words comment.created_at%> -</p> 
+      <div>
+          <span onclick="editComment(<%= comment.id%>)">
+          <span onclick="remove(<%=comment.id%>)">Delete</span>
+      </div>
+      </div>
+  </div>
+</div>

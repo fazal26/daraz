@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_one_attached :image
   has_many :users_roles
   has_many :products
+  has_many :comments
   has_many :roles, through: :users_roles
 
 
@@ -17,11 +18,13 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
 
   def self.from_omniauth(auth)
-    if auth.provider === 'facebook'
-      facebook_auth(auth)
-    elsif auth.provider === 'google_oauth2'
-      google_auth(auth)
-    end
+    method_name = "#{auth.provider}_auth"
+    self.send(method_name, auth) if defined?(method_name)
+    # if auth.provider === 'facebook'
+    #   facebook_auth(auth)
+    # elsif auth.provider === 'google_oauth2'
+    #   google_auth(auth)
+    # end
   end
 
   def self.new_with_session(params, session)
@@ -42,7 +45,7 @@ class User < ApplicationRecord
       downloaded_image = open(auth.info.image)
       user.image.attach(io: downloaded_image  , filename: "foo.jpg")
       # user.image.attach(auth.info.image)
-      # If you are using confirmable and the provider(s) you use validate emails, 
+      # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end

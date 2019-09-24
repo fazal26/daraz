@@ -13,6 +13,9 @@
 //= require jquery
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= requrie bootstrap-sprockets
 //= require_tree .
+
+var remove = function(id) {
+  document.getElementById(id).style.display = 'none';
+};

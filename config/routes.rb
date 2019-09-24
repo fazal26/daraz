@@ -8,10 +8,11 @@ Rails.application.routes.draw do
   resources :users do
     resources :products
   end
-
+  resources :comments
   resources :charges
 
-  
+  get "/comment/:id/reply", to: "comment#reply", as: "reply"
+
   
   root to: 'application#landing_page'
   # ---------------------------

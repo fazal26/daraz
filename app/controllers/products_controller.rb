@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :get_product, only:[:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.where(user_id: current_user.id)
+    @products = Product.all
   end
 
   def new
@@ -10,17 +10,18 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.create_product(product_params)
+    product = Product.create_with_image(product_params)
     redirect_to user_products_path(current_user)
   end
 
   def show
-  end
-
-  def edit
+    @comments = Comment.where(product_id: @product.id)
+    @comment = Comment.new
   end
 
   def update
+    @product.update!(product_params)
+    redirect_to user_products_path(current_user)
   end
 
   def destroy

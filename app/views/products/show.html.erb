@@ -1,7 +1,12 @@
+<h1 class="text-primary text-center">Product Details</h1>
 <div class="well">
-<h1><%= @product.title%></h1>
-<h1>Price: <%= @product.price%>$</h1>
+<h3><%= @product.title.capitalize%></h3>
+<h4>Price: <%= @product.price%>$</h4>
 <% @product.images.each do |image| %>
-  <%= image_tag(image, style: "width:20vw", class: "img-rounded") %>
+  <%= image_tag(image, style: "width:40vw", class: "img-rounded") %>
 <% end %>
+</div>
+<br>
+<div class="comments_container">
+  <%= render 'comments'%>
 </div>
