@@ -34,3 +34,12 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
 end
+
+gem 'bootstrap', '~> 4.0.0'
+gem 'devise'
+gem 'jquery-rails'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem "rolify"
+gem 'searchkick'
+gem 'stripe'

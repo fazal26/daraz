@@ -1,5 +1,5 @@
-<%= form_for @comment, remote: true do |f| %>
-  <%= f.hidden_field :product_id, value: product_id %>
+<%= form_for [@product, @product.comments.build], remote: true do |f| %>
+  <%= f.hidden_field :product_id, value: @product.id %>
   <%= image_tag(user_image(current_user) , style: "width:3vw; border-radius:50px")%>
   <%= f.text_field :body, id: "comment_body", class: "newCommentBody", placeholder:"Comment...!"%>
   <%= f.submit "Comment" ,style:"display:none"%>

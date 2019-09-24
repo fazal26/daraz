@@ -5,15 +5,11 @@ Rails.application.routes.draw do
   # devise_scope :user do
   #   delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   # end
-  resources :users do
-    resources :products
+  resources :users 
+  resources :products do
+    resources :comments
   end
-  resources :comments
   resources :charges
-
   get "/comment/:id/reply", to: "comment#reply", as: "reply"
-
-  
-  root to: 'application#landing_page'
-  # ---------------------------
+  root to: 'products#index'
 end

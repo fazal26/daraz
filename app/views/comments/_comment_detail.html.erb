@@ -7,7 +7,6 @@
       <div class="row" style="font-size: 0.7em">
       <p class = "float:right"><%= time_ago_in_words comment.created_at%> -</p> 
       <div>
-          <span onclick="editComment(<%= comment.id%>)">
           <span onclick="remove(<%=comment.id%>)">Delete</span>
       </div>
       </div>

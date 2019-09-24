@@ -1,6 +1,7 @@
+<%= render 'search'%>
 <h1 class="text-center text-primary">All Products</h1>
 <div class="products">
   <% @products.each do |product| %>
-    <%= render 'partials/product/product_item', product: product%>
+    <%= render 'product_item', product: product%>
   <%end%>
 </div>

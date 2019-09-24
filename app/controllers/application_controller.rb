@@ -11,10 +11,6 @@ class ApplicationController < ActionController::Base
       Product.current_user = current_user
     end
 
-    def landing_page
-        render 'pages/landing_page'
-    end
-
     protected
   
     def configure_permitted_parameters

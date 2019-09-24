@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  searchkick
+  
   has_many_attached :images
 
   has_many :comments, dependent: :destroy

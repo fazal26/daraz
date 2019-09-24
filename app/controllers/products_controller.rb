@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :get_product, only:[:show, :edit, :update, :destroy]
-
+  before_action :set_product, only:[:show, :edit, :update, :destroy]
+  
   def index
     @products = Product.all
   end
@@ -11,28 +11,30 @@ class ProductsController < ApplicationController
 
   def create
     product = Product.create_with_image(product_params)
-    redirect_to user_products_path(current_user)
+    redirect_to products_path
   end
 
   def show
-    @comments = Comment.where(product_id: @product.id)
+    @comments = Product.find(params[:id]).comments.reverse
     @comment = Comment.new
   end
 
   def update
-    @product.update!(product_params)
-    redirect_to user_products_path(current_user)
+    @product.update!({title: product_params[:title], price: product_params[:price], user_id: current_user.id})
+    @product.images.attach(product_params[:image])
+    @product.save
+    redirect_to products_path
   end
 
   def destroy
-    @product.delete
-    redirect_to user_products_path(current_user)
+    @product.destroy!
+    redirect_to products_path
   end
 
   private
 
-  def get_product
-    @product = Product.find(params[:id])
+  def set_product
+    @product = Product.includes(:comments).find(params[:id])
   end
 
   def product_params
