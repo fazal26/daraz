@@ -8,11 +8,15 @@ gem 'pg'
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
-
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootstrap', '~> 4.0.0'
+gem 'devise'
+gem 'jquery-rails'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'stripe'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -30,11 +34,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
 end
-
-gem 'bootstrap', '~> 4.0.0'
-gem 'devise'
-gem 'jquery-rails'
-gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2'
-gem "rolify"
-gem 'stripe'
