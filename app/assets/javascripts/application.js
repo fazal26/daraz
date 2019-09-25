@@ -17,5 +17,6 @@
 //= require_tree .
 
 var remove = function(id) {
+  console.log(id)
   document.getElementById(id).style.display = 'none';
 };

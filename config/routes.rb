@@ -1,19 +1,13 @@
 Rails.application.routes.draw do
-  # routes added by Fazal Karim
-
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   # devise_scope :user do
   #   delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   # end
-  resources :users do
-    resources :products
-  end
-  resources :comments
+  resources :users 
   resources :charges
-
-  get "/comment/:id/reply", to: "comment#reply", as: "reply"
-
+  resources :products do
+    resources :comments
+  end
   
-  root to: 'application#landing_page'
-  # ---------------------------
+  root to: 'products#index'
 end

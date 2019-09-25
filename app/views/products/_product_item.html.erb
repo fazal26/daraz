@@ -5,12 +5,11 @@
   </div>
   <%= image_tag(product_image(product) , style: "width:20vw")%>
     <div class="product_actions">
-    <%= link_to "Details", user_product_path(current_user,product), class: "btn btn-info"%>
+    <%= link_to "Details", product_path(product), class: "btn btn-info"%>
     <% if product.user_id == current_user.id%>
-      <%= link_to "Edit", edit_user_product_path(current_user,product), class: "btn btn-warning"%>
-      <%= link_to "Delete",  user_product_path(current_user, product), method: :delete, data: { confirm: "You Sure?"}, class: "btn btn-danger"%>
+      <%= link_to "Edit", edit_product_path(product), class: "btn btn-warning"%>
+      <%= link_to "Delete",  product_path(product), method: :delete, data: { confirm: "You Sure?"}, class: "btn btn-danger"%>
 
     <% end %>
   </div>
-
 </div>

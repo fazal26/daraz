@@ -3,8 +3,8 @@
   <div class="collapse navbar-collapse " id="navbar">
       <% if user_signed_in? %>
         <div style="float:right">
-          <%= link_to "Add Product", new_user_product_url(current_user), class: "btn btn-success" %>
-          <%= link_to "All Products", user_products_url(current_user), class: "btn btn-success" %>
+          <%= link_to "Add Product", new_product_url, class: "btn btn-success" %>
+          <%= link_to "All Products", products_url, class: "btn btn-success" %>
           <%= link_to "Profile", user_path(current_user), class: "btn btn-success" %>
           <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
         </div>
