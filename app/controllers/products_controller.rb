@@ -31,6 +31,15 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
+  def search
+    render json: Product.search(params[:query], {
+      fields: ["title^5"],
+      limit: 10,
+      load: false,
+      misspellings: {below: 5}
+    }).map(&:title)
+  end
+
   private
 
   def set_product

@@ -40,6 +40,5 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem "rolify"
 gem 'searchkick'
 gem 'stripe'
