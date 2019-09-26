@@ -1,22 +1,32 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
-// vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
 //= require jquery
 //= require rails-ujs
 //= require activestorage
 //= requrie bootstrap-sprockets
+//= require jquery.flexslider
+//= requrie typeahead.bundle
 //= require_tree .
+//= require_self
 
 var remove = function(id) {
-  console.log(id)
+  console.log(id);
   document.getElementById(id).style.display = 'none';
 };
+
+// var suggestedData = new Bloodhound({
+//   datumTokenizer: Bloodhound.tokenizers.obj.whitespace,
+//   queryTokenizer: Bloodhound.tokenizers.whitespace,
+//   remote: {
+//     url: '/products/autocomplete?query=%QUERY',
+//     wildcard: '%QUERY'
+//   }
+// });
+
+// $('#product-search').typeahead(null, {
+//   source: suggestedData
+// });
+
+$(document).ready(function(){ 
+  $('.flexslider').flexslider({
+    nextText: "XXX"
+  });
+});

@@ -2,7 +2,7 @@
   <%= link_to "Daraz", root_path, class:"navbar-brand" %>
   <div class="collapse navbar-collapse " id="navbar">
       <% if user_signed_in? %>
-        <div style="float:right">
+        <div>
           <%= link_to "Add Product", new_product_url, class: "btn btn-success" %>
           <%= link_to "All Products", products_url, class: "btn btn-success" %>
           <%= link_to "Profile", user_path(current_user), class: "btn btn-success" %>

@@ -37,6 +37,7 @@ end
 
 gem 'bootstrap', '~> 4.0.0'
 gem 'devise'
+gem 'flex-slider-rails'
 gem 'jquery-rails'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'

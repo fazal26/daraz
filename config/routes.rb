@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   resources :charges
   resources :products do
     resources :comments
+    collection do
+      get :autocomplete
+    end 
   end
   
   root to: 'products#index'
