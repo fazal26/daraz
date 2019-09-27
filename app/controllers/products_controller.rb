@@ -42,6 +42,7 @@ class ProductsController < ApplicationController
       match: :word_start,
       limit: 5,
       load: false,
+      misspellings: {below: 5}
     }).map(&:title)
   end
 

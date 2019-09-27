@@ -1,13 +1,12 @@
-<div class = "row commentContainer" id=<%= comment.id %>>
+<div class = "row commentContainer" id=<%= comment.id%>>
   <div class="col-sm-10">
 		<%= image_tag(user_image(comment.user) , class: "commentImage")%>
 		<%= comment.body%>
   </div>
   <div class="col-sm-2">
 		<div class="row elapsedTime">
-			<p class="float:right"><%= time_ago_in_words comment.created_at%> -</p> 
-			<span onclick="remove(<%=comment.id%>)">Delete</span>
-			<%= link_to "X", product_comment_path(comment), method: :delete, data:{confirm: "Are you sure!"}%>
+			<p class="float:right"><%= time_ago_in_words comment.created_at%></p> 
+			<span onclick="remove(<%=comment.id%>)"><%= link_to "- Delete", product_comment_path(product, comment), method: :delete, data:{confirm: "Are you sure!"}%></span>
 		</div>
   </div>
 </div>

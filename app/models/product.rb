@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  searchkick text_middle: [:title]
+  searchkick word_start: [:title]
   
   has_many_attached :images
 

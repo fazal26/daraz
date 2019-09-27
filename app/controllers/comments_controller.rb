@@ -8,17 +8,16 @@ class CommentsController < ApplicationController
     @comment = @product.comments.build(comment_params)
     @comment.user_id = current_user.id
     @comment.save!
+    render :create, layout: false
   end
 
   def destroy
-    puts "------------\n"*10, params.inspect
     comment = Comment.find(params[:id])
     comment.destroy!
-    redirect_back(fallback_location: root_path)
   end
 
   private
     def comment_params
-      params.fetch(:comment).permit(:body, :product_id, :id)
+      params.fetch(:comment).permit(:body, :product_id)
     end
 end
