@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  searchkick word: [:title]
+  searchkick word_start: [:title]
   
   has_many_attached :images
 
@@ -7,10 +7,14 @@ class Product < ApplicationRecord
 
   belongs_to :user
 
-  cattr_accessor :current_user
+  def search_data
+    { title: title,
+      price: price
+    } 
+  end
 
-  def self.create_with_image(params)
-    product = Product.new({title: params[:title], price: params[:price], user_id: current_user.id})
+  def self.create_with_image(user, params)
+    product = Product.new({title: params[:title], price: params[:price], user_id: user.id})
     product.images.attach(params[:image])
     product.save && product
   end

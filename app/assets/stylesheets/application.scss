@@ -1,46 +1,7 @@
- @import "bootstrap";
+ /*
+ *= require_tree .
+ *= require_self
+ */
 
- .products {
-    display: flex;
-    flex-flow: wrap;
-    // text-align: center;
- }
- .product_item{
-    border-radius: 5px;
-    width: 20vw;
-    font-size: 1em;
-    margin-right: 5vw;
-    margin-bottom: 5vw;
-    
- }
- .product_price {
-   color: green;
- }
- .product_actions {
-   width: 20vw;
-   text-align: center;
-   padding: 5px;
- }
-
- .comments_container{
-   background: beige;
-    border-radius: 7px;
- }
-
- .newCommentBody{
-  border-radius: 5px;
-  width: 70vw;
-  height: 3vw;
-
-}
-
-.editCommentBody{
-  border-radius: 5px;
-  width: 50vw;
-  height: 3vw;
-
-}
-input::placeholder {
-  font-size: 0.7em;
-
-}
+@import "bootstrap";
+@import "flexslider";

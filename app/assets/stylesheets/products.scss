@@ -1,6 +1,28 @@
-// Place all the styles related to the products controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-.product_item {
-  background: brown;
+.products {
+  display: flex;
+  flex-flow: wrap;
+}
+.productItem{
+  border-radius: 5px;
+  width: 20vw;
+  font-size: 1em;
+  margin-right: 5vw;
+  margin-bottom: 5vw;
+}
+.productPrice {
+  color: green;
+}
+.productActions {
+  width: 20vw;
+  text-align: center;
+  padding: 5px;
+}
+.editProductImages {
+  max-width:10vw
+}
+.productThumbnail {
+  width:20vw;
+}
+.productImages {
+  width:80vw;
 }

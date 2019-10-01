@@ -16,17 +16,14 @@
         <div class = col-sm-8>
           <% if @user.username.present? %>
             <h3><%= @user.username%></h3>
-          <% else %>
-            <h3>**</h3>
           <% end %>
-          
          <h3><%= @user.email%></h3>
         </div>
       </div>
     </div>
     
     <div class = "col-sm-5">
-      <%= image_tag(user_image(@user) , style: "width:20vw", class: "img-rounded")%>
+      <%= image_tag(user_image(@user), class: "profileImage")%>
     </div>
   </div>
 </div>

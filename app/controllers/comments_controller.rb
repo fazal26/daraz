@@ -8,12 +8,22 @@ class CommentsController < ApplicationController
     @comment = @product.comments.build(comment_params)
     @comment.user_id = current_user.id
     @comment.save!
+    render :create, layout: false
+  end
+
+  def edit
+    @product = Product.find(params[:product_id])
+    @comment = Comment.find(params[:id])
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+    @comment.update(comment_params)
   end
 
   def destroy
     comment = Comment.find(params[:id])
     comment.destroy!
-    redirect_back(fallback_location: root_path)
   end
 
   private

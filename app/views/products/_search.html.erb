@@ -1,4 +1,23 @@
-<%= form_tag(products_path) do %>
-  Store <%= text_field_tag :product %>
+<%= form_tag(products_path, method: :get, id: 'product-search', autocomplete: :off) do %>
+  <%= text_field_tag :query %>
   <%= submit_tag 'Search' %>
 <% end %>
+<input id="product" type="text" placeholder="Enter an address"  autocomplete="off">
+
+<script>
+  var products = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/products/autocomplete?query=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+  $('#product').typeahead(null, {
+    displayKey: 'title',
+    source: products
+  });
+  $("#product").on("change keyup", function() {
+    console.log(products)
+  });
+</script>

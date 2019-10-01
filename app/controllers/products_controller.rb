@@ -2,7 +2,12 @@ class ProductsController < ApplicationController
   before_action :set_product, only:[:show, :edit, :update, :destroy]
   
   def index
-    @products = Product.all
+    search = params[:query].present? ? params[:query] : nil
+    if search
+      @products = Product.search(params[:query])
+    else
+      @products = Product.all
+    end
   end
 
   def new
@@ -10,7 +15,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.create_with_image(product_params)
+    product = Product.create_with_image(current_user, product_params)
     redirect_to products_path
   end
 
@@ -31,10 +36,11 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
-  def search
+  def autocomplete
     render json: Product.search(params[:query], {
-      fields: ["title^5"],
-      limit: 10,
+      fields: ["title"],
+      match: :word_start,
+      limit: 5,
       load: false,
       misspellings: {below: 5}
     }).map(&:title)

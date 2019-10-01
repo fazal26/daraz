@@ -1,12 +1,15 @@
 <h1 class="text-primary text-center">Product Details</h1>
 <div class="well">
-<h3><%= @product.title.capitalize%></h3>
-<h4>Price: <%= @product.price%>$</h4>
-<% @product.images.each do |image| %>
-  <%= image_tag(image, style: "width:40vw", class: "img-rounded") %>
-<% end %>
+  <h3><%= @product.title.capitalize%></h3>
+  <h4>Price: <%= @product.price%>$</h4>
 </div>
-<br>
-<div class="comments_container">
-  <%= render 'comments', comments: @comments%>
+<div class="flexslider" >
+  <ul class="slides productImages">
+    <% @product.images.each do |image| %>
+      <li><%= image_tag(image) %></li>
+    <% end %>
+  </ul>
+</div>
+<div class="commentsContainer">
+  <%= render 'comments', {product: @product, comments: @comments}%>
 </div>
