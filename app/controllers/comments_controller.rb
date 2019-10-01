@@ -11,6 +11,16 @@ class CommentsController < ApplicationController
     render :create, layout: false
   end
 
+  def edit
+    @product = Product.find(params[:product_id])
+    @comment = Comment.find(params[:id])
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+    @comment.update(comment_params)
+  end
+
   def destroy
     comment = Comment.find(params[:id])
     comment.destroy!
@@ -18,6 +28,6 @@ class CommentsController < ApplicationController
 
   private
     def comment_params
-      params.fetch(:comment).permit(:body, :product_id)
+      params.fetch(:comment).permit(:body, :product_id, :id)
     end
 end
