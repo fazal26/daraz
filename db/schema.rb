@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_23_130953) do
+ActiveRecord::Schema.define(version: 2019_09_26_091606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,13 @@ ActiveRecord::Schema.define(version: 2019_09_23_130953) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "carts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_carts_on_user_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.bigint "user_id"
@@ -46,12 +53,32 @@ ActiveRecord::Schema.define(version: 2019_09_23_130953) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string "title", limit: 100, null: false
-    t.decimal "price", null: false
+  create_table "line_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.string "itemable_type"
+    t.bigint "itemable_id"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["itemable_type", "itemable_id"], name: "index_line_items_on_itemable_type_and_itemable_id"
+    t.index ["product_id"], name: "index_line_items_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "title", limit: 100, null: false
+    t.decimal "price", precision: 12, scale: 2, null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "quantity"
+    t.text "description"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
@@ -71,7 +98,10 @@ ActiveRecord::Schema.define(version: 2019_09_23_130953) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "carts", "users"
   add_foreign_key "comments", "products"
   add_foreign_key "comments", "users"
+  add_foreign_key "line_items", "products"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "users"
 end
