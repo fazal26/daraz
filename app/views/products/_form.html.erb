@@ -1,22 +1,32 @@
 <div class="well text-center">
   <%= form_for @product do |f| %>
-    <div class="field">
-      <%= f.label :title %><br />
-      <%= f.text_field :title, autofocus: true, required: true %>
-    </div>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title, autofocus: true, required: true %>
+  </div>
 
-    <div class="field">
-      <%= f.label :price %><br />
-      <%= f.text_field :price, type: :decimal, required: true %>
-    </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description, type: :text, required: true %>
+  </div>
 
-    <div class="field">
-      <%= f.label :attachements %><br />
-      <%= f.file_field :image, multiple: true, required: true, class: "btn btn-info" %>
-    </div>
-    <br>
-    <div class="field">
-      <%= f.submit %>
-    </div>
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price, type: :decimal, required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :quantity %><br />
+    <%= f.text_field :quantity, type: :number, value: 1,  required: true, min: 1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :attachements %><br />
+    <%= f.file_field :image, multiple: true, required: true, class: "btn btn-info" %>
+  </div>
+  <br>
+  <div class="field">
+    <%= f.submit %>
+  </div>
   <% end %>
 </div>

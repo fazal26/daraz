@@ -4,13 +4,22 @@ Rails.application.routes.draw do
   #   delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   # end
   resources :users 
-  resources :charges
   resources :products do
     resources :comments
     collection do
       get :autocomplete
     end 
   end
+
+  resources :line_items, only: [:create, :destroy, :update]
+  resource :cart, controller: :cart, only: [:show] do
+    collection do
+      patch :clear
+    end
+  end
+
+  resources :orders
+  resources :charges
   
   root to: 'products#index'
 end
