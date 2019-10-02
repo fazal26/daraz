@@ -1,5 +1,6 @@
 class CouponsController < ApplicationController
   before_action :set_coupon, only: [:edit, :update, :destroy]
+  
   def index
     @coupons = Coupon.active
   end

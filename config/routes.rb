@@ -12,15 +12,15 @@ Rails.application.routes.draw do
   end
 
   resources :line_items, only: [:create, :destroy, :update]
-  resource :cart, controller: :cart, only: [:show] do
+  resource :cart, controller: :cart, only: [:show, :destroy] do
     collection do
-      patch :clear
+      post :apply_coupon, as: :coupon
     end
   end
 
-  resources :orders
-  resources :charges
   resources :coupons
+  resources :orders, only: [:index]
+  resources :charges, only: [:new, :create]
   
   root to: 'products#index'
 end

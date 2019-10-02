@@ -16,7 +16,12 @@ class ProductsController < ApplicationController
 
   def create
     product = Product.create_with_image(current_user, product_params)
-    redirect_to products_path
+
+    if product.present?
+      redirect_to product, notice: "Product was successfully created."
+    else
+      render :new
+    end
   end
 
   def show
@@ -33,7 +38,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy!
-    redirect_to products_path
+    redirect_to products_path, notice: "successfully removed!"
   end
 
   def autocomplete
