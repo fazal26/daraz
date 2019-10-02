@@ -5,47 +5,44 @@ class LineItemsController < ApplicationController
 
   def create
     line_item = @cart.line_items.new(line_item_params)
-    line_item.save!
-    puts "____________\n"*10, line_item.inspect
+    if line_item.save
+      redirect_to products_path
 
-    redirect_to products_path
+    else  
+      redirect_to products_path, alert: 'Not enough products available!'
+    
+    end
   end
 
   def update
     if params[:quantity].to_i <= @item.product.quantity 
       @item.update(quantity: params[:quantity])
-      redirect_to cart_path
     else
-      render json: { status: 404, message: 'Not enough products available!' }  
+      redirect_to products_path, alert: 'Not enough products available!'  
     end
+
+    redirect_to cart_path
   end
 
   def destroy
     @item.delete
-    redirect_to cart_path
+    redirect_to cart_path, notice: 'Item deleted!'
   end
   
   private
 
   def set_cart
-    current_user.cart = Cart.new unless current_user.cart
     @cart = current_user.cart
   end
 
   def set_item
-    begin
-      @item = @cart.line_items.find_by(id: params[:id])
-      
-    rescue ActiveRecord::RecordNotFound => e
-      render json: {
-        error: e.to_s
-      }, status: :not_found
-    end
+    @item = @cart.line_items.find_by(id: params[:id])
+    redirect_to @cart, alert: "Item not found!" if @item.nil?
   end
 
   def set_product
     product = Product.find_by(id: line_item_params["product_id"])
-    render json: { status: 404, message: 'Product cant be added!' } if product.user_id == current_user.id
+    redirect_to products_path, notice: 'Product cant be added!' if product.user_id == current_user.id
   end
 
   def line_item_params
