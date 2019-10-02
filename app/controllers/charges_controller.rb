@@ -1,9 +1,6 @@
 class ChargesController < ApplicationController
   before_action :set_items, only: [:create]
 
-  def new
-  end
-
   def create
     redirect_to cart_url, alert: "Cart is empty!" if @items.empty?
 
@@ -25,8 +22,7 @@ class ChargesController < ApplicationController
       redirect_to orders_url, notice: "Your Orders has been shipped!"
 
     else
-      redirect_to cart_url
-      alert: "Required quantity is unavailable."
+      redirect_to cart_url, alert: "Required quantity is unavailable."
     end
 
   rescue Stripe::CardError => e

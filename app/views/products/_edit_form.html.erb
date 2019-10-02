@@ -17,7 +17,7 @@
     <br>
     <div class="field">
       <% @product.images.each do |image| %>
-        <%= image_tag(image, class: "editProductImages") %>
+        <%= image_tag(image, class: "editProductImages", required: true)%>
       <% end %>
     </div>
     <br>

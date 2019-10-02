@@ -6,11 +6,9 @@ class LineItemsController < ApplicationController
   def create
     line_item = @cart.line_items.new(line_item_params)
     if line_item.save
-      redirect_to products_path
-
+      redirect_to root_path, notice: 'Successfully added to cart'
     else  
-      redirect_to products_path, alert: 'Not enough products available!'
-    
+      redirect_to root_path, alert: 'Error adding product!'
     end
   end
 
