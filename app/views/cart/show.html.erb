@@ -63,7 +63,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <h5 class="modal-title" id="exampleModalLabel"><%= ""%></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -102,6 +102,7 @@
     var id = button.data('item');
     var product_quantity = button.data('product_quantity');
     var modal = $(this);
+    alert(title);
     modal.find('.modal-title').text(title);
     modal.find('.modal-body input').val(quantity);
     modal.find('.modal-body input').attr('max', product_quantity);
