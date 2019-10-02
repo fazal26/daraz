@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :get_user, only:[:show, :update, :destory, :edit]
+  before_action :set_user, only:[:show, :update, :destory, :edit]
 
   def update
     @user.update!(edit_user_params)
@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   private
 
-  def get_user
+  def set_user
     @user = User.find(params[:id])
   end
 

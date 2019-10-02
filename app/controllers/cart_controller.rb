@@ -15,7 +15,7 @@ class CartController < ApplicationController
     if coupon.present?
       @updated_price = cart_params["grand_total"].to_f - (coupon.discount.to_f / 100) * cart_params["grand_total"].to_f
     else
-      # redirect_to @cart, alert: "Coupon is invalid!"
+      #
     end
 
     respond_to do |format|
@@ -39,13 +39,7 @@ class CartController < ApplicationController
   end
 end
 
-#TODO fix and manage stripe
-#TODO fix and manage quantities
-#TODO fix and manage coupons
 #TODO restrict comment action
 #TODO fix comment image
-#TODO set params name :product to line_item
-#TODO rescue raise when product item not found
-#TODO coupons 
 #TODO logged out cart
-#TODO ahmed shafiq - do we need to add a check for quantity of line_items before deleting
+#TODO ahmed shafiq - namespace for adminpanel and coupon management

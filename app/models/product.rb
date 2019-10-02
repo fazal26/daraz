@@ -6,9 +6,9 @@ class Product < ApplicationRecord
   has_many :line_items 
   has_many_attached :images
   
-
   def search_data
-    { title: title,
+    { 
+      title: title,
       price: price
     } 
   end

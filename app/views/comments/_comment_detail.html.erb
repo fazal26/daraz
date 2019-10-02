@@ -6,7 +6,7 @@
   <div class="col-sm-2">
 		<div class="row elapsedTime">
 			<p class="float:right"><%= time_ago_in_words comment.created_at%></p> 
-			<% if is_commenter(comment.user_id) %>
+			<% if true %>
 				<a href= "<%= edit_product_comment_path(product, comment)%>" data-remote="true">- Edit</a>
 				<span onclick="remove(<%=comment.id%>)">
 					<%= link_to "- Delete", product_comment_path(product, comment), method: :delete, data: { confirm: "You Sure?"}%>
