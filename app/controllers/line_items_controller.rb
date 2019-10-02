@@ -6,6 +6,8 @@ class LineItemsController < ApplicationController
   def create
     line_item = @cart.line_items.new(line_item_params)
     line_item.save!
+    puts "____________\n"*10, line_item.inspect
+
     redirect_to products_path
   end
 
@@ -26,6 +28,7 @@ class LineItemsController < ApplicationController
   private
 
   def set_cart
+    current_user.cart = Cart.new unless current_user.cart
     @cart = current_user.cart
   end
 

@@ -12,6 +12,8 @@ class CartController < ApplicationController
   private
 
   def set_cart
+    puts "--------------\n"*10, current_user.cart.inspect
+
     @cart = current_user.cart
   end
 end

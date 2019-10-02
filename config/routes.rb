@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   resources :orders
   resources :charges
+  resources :coupons
   
   root to: 'products#index'
 end
