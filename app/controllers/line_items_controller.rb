@@ -45,7 +45,6 @@ class LineItemsController < ApplicationController
 
   def set_product
     product = Product.find_by(id: line_item_params["product_id"])
-
     render json: { status: 404, message: 'Product cant be added!' } if product.user_id == current_user.id
   end
 

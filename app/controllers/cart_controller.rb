@@ -27,5 +27,5 @@ end
 #TODO rescue raise when product item not found
 #TODO coupons 
 #TODO logged out cart
-
+#TODO ahmed shafiq - do we need to add a check for quantity of line_items before deleting
 

@@ -46,12 +46,9 @@
                 <p><%= flash[:error] %></p>
               </div>
             <% end %>
-
           </article>
 
-          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month's subscription"
-              data-amount=<%= grand_total %> data-locale="auto"></script>
+          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month's subscription" data-amount=<%= grand_total %> data-locale="auto"></script>
         <% end %>
       <% end %>
     </div>
@@ -83,7 +80,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <%= submit_tag('Save changes', class: 'btn btn-primary') %>
+          <%= submit_tag('Update Cart', class: 'btn btn-primary') %>
         </div>
       <% end %>
     </div>

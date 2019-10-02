@@ -18,9 +18,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :orders
-  resources :charges
   resources :coupons
+  resources :orders, only: [:index]
+  resources :charges, only: [:new, :create]
   
   root to: 'products#index'
 end
