@@ -20,7 +20,7 @@ gem 'omniauth-google-oauth2'
 gem 'stripe'
 gem 'flex-slider-rails'
 gem 'jquery-datatables'
-
+gem 'searchkick'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
