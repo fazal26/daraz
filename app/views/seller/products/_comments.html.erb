@@ -1,0 +1,7 @@
+<h3 class = "text-center text-primary">Comments</h3>
+<%= render 'new_comment' %>
+<div id="commentBox">
+  <% comments.each do |comment|%>
+    <%= render 'comments/comment_detail' , {product: product, comment:comment}%>
+  <% end %>  
+</div>

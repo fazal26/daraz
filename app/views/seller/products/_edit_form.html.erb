@@ -1,0 +1,28 @@
+<div class="well text-center">
+  <%= form_for @product do |f| %>
+    <div class="field">
+      <%= f.label :title %><br />
+      <%= f.text_field :title, autofocus: true, required: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :price %><br />
+      <%= f.text_field :price, type: :decimal, required: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :attachements %><br />
+      <%= f.file_field :image, multiple: true, class: "btn btn-info" %>
+    </div>
+    <br>
+    <div class="field">
+      <% @product.images.each do |image| %>
+        <%= image_tag(image, class: "editProductImages", required: true)%>
+      <% end %>
+    </div>
+    <br>
+    <div class="field">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>

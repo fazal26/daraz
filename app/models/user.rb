@@ -1,7 +1,5 @@
 require 'open-uri'
 class User < ApplicationRecord
-  after_create :create_cart
-
   has_one_attached :image
   has_one :cart
   has_many :products
@@ -66,7 +64,4 @@ class User < ApplicationRecord
     user
   end
 
-  def create_cart
-    self.cart = Cart.new
-  end
 end
