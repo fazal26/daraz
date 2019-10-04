@@ -22,6 +22,7 @@ gem 'flex-slider-rails'
 gem 'jquery-datatables'
 gem 'searchkick'
 gem 'font-awesome-rails'
+gem 'rolify'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

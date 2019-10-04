@@ -1,9 +1,25 @@
+Role.create!([
+    {name: "admin"},
+    {name: "seller"},
+    {name: "buyer"},
+    {name: "guest"},
+])
+
+user = User.new({
+    email: "admin@admin.com",
+    username: "Super Cool Admin",
+    password: "pppppp",
+    password_confirmation: "pppppp"
+})
+
+user.add_role(:admin)
+user.save!
+
 user1 = User.create!({email: "user1@test.com", username: "user1", password: "pass1234$", password_confirmation: "pass1234$"})
 
 user2 = User.create!({email: "user2@test.com", username: "user2", password: "pass1234$", password_confirmation: "pass1234$"})
 
 user3 = User.create!({email: "user3@test.com", username: "user3", password: "pass1234$", password_confirmation: "pass1234$"})
-
 
 milkpak = user2.products.create(title: 'milkpak', quantity: 100, description: 'nestle milk', price: 100.00)
 

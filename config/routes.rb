@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   # devise_scope :user do
   #   delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   # end
-  resources :users
+  namespace :admin do
+    resources :products, only: [:index]
+    resources :coupons
+    resources :promotions
+  end
+
   namespace :seller do 
     resources :products do
       resources :comments
@@ -11,33 +16,23 @@ Rails.application.routes.draw do
         get :autocomplete
       end 
     end
-    
-    resources :line_items, only: [:create, :destroy, :update]
-    resource :cart, controller: :cart, only: [:show, :destroy] do
-      collection do
-        post :apply_coupon, as: :coupon
-      end
-    end
-    
-    resources :coupons
-    resources :orders, only: [:index]
-    resources :charges, only: [:new, :create]
   end
 
-  resources :products, only: [:index, :show] do
+  resources :products, only: [:index, :show] do  
     collection do
       get :autocomplete
     end 
     resources :comments
   end
-  
-  resources :line_items, only: [:create, :destroy, :update]
+
   resource :cart, controller: :cart, only: [:show, :destroy] do
     collection do
       post :apply_coupon, as: :coupon
     end
   end
-
+  
+  resources :users
+  resources :line_items, only: [:create, :destroy, :update]
   resources :orders, only: [:index]
   resources :charges, only: [:new, :create]
   

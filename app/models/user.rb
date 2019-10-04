@@ -1,5 +1,7 @@
 require 'open-uri'
 class User < ApplicationRecord
+  rolify
+
   has_one_attached :image
   has_one :cart
   has_many :products
