@@ -1,5 +1,6 @@
 require 'open-uri'
 class User < ApplicationRecord
+  rolify
   after_create :create_cart
 
   has_one_attached :image

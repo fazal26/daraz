@@ -3,6 +3,15 @@ Rails.application.routes.draw do
   # devise_scope :user do
   #   delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   # end
+
+  namespace :admin do
+    resources :products, only: [:index, :show] do
+      resources :comments, only: [:show]
+    end
+    resources :coupons
+    resources :promotions
+  end
+
   resources :users 
   resources :products do
     resources :comments
@@ -18,7 +27,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :coupons
   resources :orders, only: [:index]
   resources :charges, only: [:new, :create]
   

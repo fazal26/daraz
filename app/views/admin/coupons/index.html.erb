@@ -17,11 +17,11 @@
         <td><%=coupon.discount%> %</td>
         <td><%=coupon.expire_at%></td>
         <td>
-          <%= link_to "Edit", edit_coupon_path(coupon), class: "btn btn-success"%> 
-          <%= link_to "Delete", coupon_path(coupon), method: :delete, data:{ confirm: "Are you Sure?"}, class: "btn btn-danger"%>
+          <%= link_to "Edit", edit_admin_coupon_path(coupon), class: "btn btn-success"%> 
+          <%= link_to "Delete", admin_coupon_path(coupon), method: :delete, data:{ confirm: "Are you Sure?"}, class: "btn btn-danger"%>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Add Coupon', new_coupon_path, class: "btn btn-success" %>
+<%= link_to 'Add Coupon', new_admin_coupon_path, class: "btn btn-success" %>

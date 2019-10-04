@@ -1,5 +1,5 @@
 <div class="well text-center">
-  <%= form_for @coupon do |f| %>
+  <%= form_for [:admin, @coupon] do |f| %>
     <div class="field">
       <%= f.label :title %><br />
       <%= f.text_field :title, autofocus: true, required: true %>

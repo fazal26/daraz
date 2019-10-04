@@ -1,0 +1,8 @@
+<div class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.username%><%= image_tag user_image(current_user) , class: "img-rounded user-avatar-sm"%></a>
+  <ul class="dropdown-menu">
+    <li><a href=<%= user_path(current_user)%> >Profile <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+    <li class="divider"></li>
+    <li><a href=<%= destroy_user_session_path%> >Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+  </ul>
+</div>

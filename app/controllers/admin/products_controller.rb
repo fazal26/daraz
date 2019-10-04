@@ -1,8 +1,10 @@
-class ProductsController < ApplicationController
-  def index; end
-  def new; end
-  def create; end
-  def edit; end
-  def update; end
-  def destroy; end
+module Admin
+  class ProductsController < BaseController
+    def index
+      @user_count = User.count
+      @product_count = Product.count
+      @promotion_count = Promotion.count
+      @coupon_count = Coupon.count
+    end
+  end
 end
