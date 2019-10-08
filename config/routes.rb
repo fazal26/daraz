@@ -28,16 +28,16 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resource :cart, controller: :cart, only: [:show, :destroy] do
-    collection do
+  resources :users
+  resource :cart, controller: :cart, only: [:show, :destroy]  
+  resources :line_items, only: [:create, :destroy, :update]
+  resources :orders, only: [:index] do 
+    collection do 
       post :apply_coupon, as: :coupon
+      get :pending_order, as: :pending
     end
   end
-  
-  resources :users
-  resources :line_items, only: [:create, :destroy, :update]
-  resources :orders, only: [:index]
-  resources :charges, only: [:new, :create]
+  resources :charges, only: [:create]
   
   get '*path' => redirect('/')
   root to: 'products#index'

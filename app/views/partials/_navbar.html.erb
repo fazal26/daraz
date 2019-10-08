@@ -4,22 +4,23 @@
     <% if user_signed_in? %>
       <div class="row">
         <div class="col-sm-10"> 
-          <% if !is_admin %>
-              <%= link_to "Add Product", new_seller_product_url, class: "btn btn-success" %>
-              <%= link_to "Cart", cart_path, class: "btn btn-primary" %>
-              <%= link_to "Orders", orders_path, class: "btn btn-primary" %>
+          <% if !is_admin || !is_seller %>
+            <%= link_to "Cart", cart_path, class: "btn btn-primary" %>
+            <%= link_to "Orders", orders_path, class: "btn btn-primary" %>
+            <%= link_to "Pending Order", pending_orders_path, class: "btn btn-primary" %>
+          <%elsif is_seller%>
+            <%= link_to "Add Product", new_product_url, class: "btn btn-success" %>
           <% end %>
         </div>
         <div class="col-sm-2 row"> 
           <%= render partial: "partials/user_profile" %>
         </div>
-
-          <%= link_to "Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
-
+        <%= link_to "Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
       </div>
     <% else %>
       <%= link_to "Sign In", new_user_session_path %>
       <%= link_to "Sign Up", new_user_registration_path %>
+      <%= link_to "Cart", cart_path, class: "btn btn-primary" %>
     <% end %>
   </div>
 </nav>

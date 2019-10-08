@@ -3,6 +3,10 @@ class ProductsController < BaseController
   around_action :authorize_user, only: [:update, :edit, :destroy]
 
   def index
+    if current_user.present?
+      current_cart.user = current_user
+    end
+
     if params[:query].present?
       @products = Product.search(params[:query])
     else

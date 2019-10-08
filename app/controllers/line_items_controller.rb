@@ -5,6 +5,7 @@ class LineItemsController < BaseController
 
   def create
     line_item = @cart.line_items.new(line_item_params)
+
     if line_item.save
       redirect_to root_path, notice: 'Successfully added to cart'
     else  
@@ -44,7 +45,7 @@ class LineItemsController < BaseController
   end
 
   def line_item_params
-    params.require(:product).permit(:product_id, :quantity)
+    params.require(:product).permit(:product_id, :quantity, :price)
   end
 
 end

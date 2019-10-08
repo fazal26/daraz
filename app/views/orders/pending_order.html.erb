@@ -1,9 +1,6 @@
 <div class="container">
   <div class='row justify-content-around'>
-    <h2 class='col-11'> Cart Items </h2>
-    <div class='col-1'>
-      <%= link_to "Discard All Items", cart_url, method: :delete, class: "btn btn-sm btn-danger" %>
-    </div>
+    <h2 class='col-11'> Order Items </h2>
   </div>
 
   <table class="table table-bordered">
@@ -13,25 +10,34 @@
         <th scope="col">Unit Price</th>
         <th scope="col">Quantity</th>
         <th scope="col">Cost</th>
-        <th scope="col" colspan="2">Actions</th>
       </tr>
     </thead>
     <% grand_total = 0 %>
     <tbody>
-      <% @cart_items.each do |item| %>
+      <% @order_items.each do |item| %>
       <% total = item.quantity*item.product.price %>
       <tr>
         <th scope="row"><%=item.product.title%></th>
         <td><%=item.product.price%></td>
         <td><%=item.quantity%></td>
         <td><%=total%></td>
-        <td><%= link_to "Remove", line_item_path(item.id), method: :delete, class: "btn btn-sm btn-danger"%></td>
-        <td><button class="btn btn-default" href="line_items" data-toggle="modal" data-target="#exampleModal" data-title="<%= item.product.title %>" data-item="<%= item.id %>" data-product_quantity="<%= item.product.quantity %>" data-quantity="<%= item.quantity %>">Edit</button></td>
       </tr>
       <% grand_total += total %>
       <% end %>
     </tbody>
   </table>
+
+  <div class="row">
+    <div class="col-6">
+      <%= form_with(method: :post, id: "coupn_form", remote: true) do |f| %>
+      <%= hidden_field_tag "order[grand_total]", "#{grand_total}" %>
+      <%= f.label :coupon %>
+      <%= f.text_field "order[coupon_code]", type: :text, required: false %>
+      <%= f.submit "Apply Coupon", class: "btn btn-sm btn-success" %>
+      <% end %>
+    </div>
+  </div>
+
 
   <table class="table table-bordered">
     <tbody>
@@ -39,13 +45,29 @@
         <th scope="row">Total</th>
         <td>$<%=grand_total%></td>
       </tr>
+      <tr>
+        <th scope="row">Coupon</th>
+      </tr>
+      <tr>
+        <th scope="row">Grand Total</th>
+      </tr>
     </tbody>
   </table>
 
   <div class="row">
     <div class="col">
-      <% unless @cart.line_items.empty? %>
-        <%= link_to 'Checkout', pending_orders_path, method: :get, class: "btn btn-sm btn-primary" %>
+      <%= form_tag charges_path do %>
+      <article>
+        <% if flash[:error].present? %>
+        <div id="error_explanation">
+          <p><%= flash[:error] %></p>
+        </div>
+        <% end %>
+      </article>
+      <% if user_signed_in? %>
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month's subscription" data-amount=<%=@updated_price %> data - locale="auto" ></script>
+
+      <% end %>
       <% end %>
     </div>
   </div>
@@ -84,18 +106,22 @@
 </div>
 
 <script>
-  $('#exampleModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var title = button.data('title');
-    var quantity = button.data('quantity');
-    var id = button.data('item');
-    var product_quantity = button.data('product_quantity');
-    var modal = $(this);
-    alert(title);
-    modal.find('.modal-title').text(title);
-    modal.find('.modal-body input').val(quantity);
-    modal.find('.modal-body input').attr('max', product_quantity);
-    form.attr('action', 'line_items' + "/" + id);
+  var form;
+  $(document).ready(function () {
+    form = $('#quantity_form');
+
+    $("#coupn_form").submit(function (event) {
+      event.preventDefault();
+      $.post("/orders/apply_coupon.json",
+        $("#coupn_form").serialize(),
+        function (data, status) {
+          if (data === 0) {
+            data = grand_total;
+          }
+          document.getElementById("discounted_price").innerHTML = "$" + data;
+        });
+
+    });
   });
 
 </script>
