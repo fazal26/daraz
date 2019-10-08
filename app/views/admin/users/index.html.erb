@@ -1,0 +1,30 @@
+<h1 class="text-center">Users</h1>
+<br>
+<table id="coupon_datatable" class="table table-hover">
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Joined At</th>     
+      <th>Role</th>    
+      <th>Image</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each_with_index do |user, i| %>
+      <tr>
+        <td><%= i+1 %></td>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at.strftime("%Y-%B-%e") %></td>
+        <td><%= user.roles.first.name.capitalize %></td>
+        <td><%= image_tag(user_image(user), class: "user-thumbnail-list") %></td>
+        <td>
+          <%= link_to "Delete", admin_user_path(user), method: :delete, data:{ confirm: "Are you Sure?"}, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

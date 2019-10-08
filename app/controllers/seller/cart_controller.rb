@@ -1,4 +1,4 @@
-class Seller::CartController < SellerController
+class Seller::CartController < BaseController
   before_action :set_cart
   
   def show
@@ -38,8 +38,3 @@ class Seller::CartController < SellerController
     Coupon.active.find_by(title: cart_params["coupon_code"])
   end
 end
-
-#TODO restrict comment action
-#TODO fix comment image
-#TODO logged out cart
-#TODO ahmed shafiq - namespace for adminpanel and coupon management

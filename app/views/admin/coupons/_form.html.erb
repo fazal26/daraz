@@ -1,6 +1,6 @@
 <div class="coupon-form">
   <h3 class="text-center"><%= message %></h3>
-  <%= form_for [:admin, @promotion] do |f| %>
+  <%= form_for [:admin, @coupon] do |f| %>
     <div class="field">
       <%= f.label :title %><br />
       <%= f.text_field :title, autofocus: true, required: true, class: "form-group form-control form-control-sm bg-light" %>
@@ -12,10 +12,10 @@
     </div>
 
     <div class="field">
-      <%= f.label :attachements %><br />
-      <%= f.file_field :image, required: true, class: "btn btn-default" %>
+      <%= f.label :discount %><br />
+      <%= f.text_field :discount, type: :decimal, required: true, class: "form-group form-control form-control-sm bg-light", placeholder: "Enter discount in percentage" %>
     </div>
-    <br>
+
     <div class="field text-center">
       <%= f.submit class:"btn btn-success" %>
     </div>

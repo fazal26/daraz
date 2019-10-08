@@ -1,4 +1,4 @@
-class Seller::CommentsController < SellerController
+class Seller::CommentsController < BaseController
   def new
     @comment = Comment.new
   end

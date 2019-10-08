@@ -1,11 +1,12 @@
 class BaseController < ApplicationController
+  before_action :authenticate_buyer
   before_action :current_cart
 
   private
   
   def current_cart
     if session[:cart_id]
-      cart = Cart.find_by(:id => session[:cart_id])
+      cart = Cart.find_by(id: session[:cart_id])
       if cart.present?
         @current_cart = cart
       else
@@ -20,5 +21,7 @@ class BaseController < ApplicationController
 
     @current_cart
   end
-  
+
+  def authenticate_buyer
+  end
 end

@@ -1,4 +1,4 @@
-class Seller::OrdersController < SellerController
+class Seller::OrdersController < BaseController
 
   def index
     @orders = current_user.orders

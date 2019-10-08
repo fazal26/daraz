@@ -1,4 +1,4 @@
-class Seller::LineItemsController < SellerController
+class Seller::LineItemsController < BaseController
   before_action :set_cart
   before_action :set_item, only: [:destroy, :update]
   before_action :set_product, only: [:create]

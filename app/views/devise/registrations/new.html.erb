@@ -24,6 +24,14 @@
         <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true, class: "form-group form-control form-control-sm bg-light", placeholder: "Confirm Password" %>
       </div>
 
+			<div class="field">
+				<p>Register as: </p>
+				<%= radio_button_tag :role, :buyer, selected:true %>
+				<%= label_tag("Buyer") %>
+				<%= radio_button_tag :role, :seller%>
+				<%= label_tag( "Seller") %>
+			</div>
+
 			<div class="actions">
 				<%= f.submit "Register" ,class:"mt-5 btn btn-sm btn-light col"%>
 			</div>

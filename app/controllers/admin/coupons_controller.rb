@@ -19,6 +19,7 @@ module Admin
 
     def update
       @coupon.update(coupon_params)
+      redirect_to admin_coupons_path
     end
 
     def destroy

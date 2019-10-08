@@ -1,4 +1,4 @@
-class Seller::ProductsController < SellerController
+class Seller::ProductsController < BaseController
   before_action :set_product, only:[:show, :edit, :update, :destroy]
   around_action :authorize_user, only: [:update, :edit, :destroy]
 
@@ -18,7 +18,7 @@ class Seller::ProductsController < SellerController
     product = Product.create_with_image(current_user, product_params)
 
     if product.present?
-      redirect_to product, notice: "Product was successfully created."
+      redirect_to seller_products_path, notice: "Product was successfully created."
     else
       render :new
     end

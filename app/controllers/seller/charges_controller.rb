@@ -1,4 +1,4 @@
-class Seller::ChargesController < SellerController
+class Seller::ChargesController < BaseController
   before_action :set_items, only: [:create]
 
   def create
@@ -55,5 +55,3 @@ class Seller::ChargesController < SellerController
     @items = current_user.cart.line_items.includes(:product)
   end
 end
-
-# TODO check from Ahmed Shafiq

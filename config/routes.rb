@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: "registrations" } 
+
   # devise_scope :user do
   #   delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   # end
@@ -7,6 +8,8 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
     resources :coupons
     resources :promotions
+    resources :users, only: [:index, :destroy]
+    resources :dashboard, only: [:index]
   end
 
   namespace :seller do 

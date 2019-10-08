@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if is_admin
-      products_path
+      admin_dashboard_index_path
     elsif is_seller
-      root_path
+      seller_products_path
     elsif is_buyer
       root_path
     elsif is_guest
