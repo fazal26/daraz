@@ -6,16 +6,14 @@
     <h4>Available Products: <%=@product.quantity %></h4>
     <h4>Unit Price: <%= @product.price%>$</h4>
   </div>
-  <% unless @product.user_id == current_user.id %>
-    <div class="col-sm-4">
-      <%= form_with(url: line_items_path, method: :post, model: @product) do |f| %>
-        <%= hidden_field_tag "product[product_id]", "#{@product.id}" %>
-        <%= f.label :quantity %>
-        <%= f.text_field :quantity, type: :number, required: true, value: 1, min: 1, max: @product.quantity %>
-        <%= f.submit "Add to Cart", class: "btn btn-sm btn-primary" %>
-      <% end %>
-    </div>
-  <% end %>
+  <div class="col-sm-4">
+  <%= form_with(url: line_items_path, method: :post, model: @product) do |f| %>
+    <%= hidden_field_tag "product[product_id]", "#{@product.id}" %>
+    <%= f.label :quantity %>
+    <%= f.text_field :quantity, type: :number, required: true, value: 1, min: 1, max: @product.quantity %>
+    <%= f.submit "Add to Cart", class: "btn btn-sm btn-primary" %>
+    <% end %>
+  </div>
 </div>
 
 <div class="flexslider" >
@@ -29,5 +27,3 @@
 <div class="commentsContainer">
   <%= render 'comments', {product: @product, comments: @comments}%>
 </div>
-
-<!-- || current_user.cart.line_items.pluck(:product_id).include?(product.id) -->

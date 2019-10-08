@@ -1,10 +1,13 @@
+<h1 class="text-center">Discount Coupons</h1>
+<p class="text-center"><%= link_to 'Add New Coupon', new_admin_coupon_path, class: "btn btn-warning" %></p>
+<br>
 <table id="coupon_datatable" class="table table-hover">
   <thead>
     <tr>
       <th>Index</th>
       <th>Title</th>
       <th>Discount</th>     
-      <th>Expires In</th>     
+      <th>Expires At</th>     
       <th>Actions</th>     
 
     </tr>
@@ -17,11 +20,10 @@
         <td><%=coupon.discount%> %</td>
         <td><%=coupon.expire_at%></td>
         <td>
-          <%= link_to "Edit", edit_coupon_path(coupon), class: "btn btn-success"%> 
-          <%= link_to "Delete", coupon_path(coupon), method: :delete, data:{ confirm: "Are you Sure?"}, class: "btn btn-danger"%>
+          <%= link_to "Edit", edit_admin_coupon_path(coupon), class: "btn btn-success"%> 
+          <%= link_to "Delete", admin_coupon_path(coupon), method: :delete, data:{ confirm: "Are you Sure?"}, class: "btn btn-danger"%>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Add Coupon', new_coupon_path, class: "btn btn-success" %>

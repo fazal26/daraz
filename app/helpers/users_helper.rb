@@ -1,6 +1,6 @@
 module UsersHelper
   def user_image(user)
-    if user.image.attached?
+    if user && user.image.attached?
         user.image
     else
         image_path('user.png')

@@ -1,4 +1,4 @@
-class ChargesController < ApplicationController
+class ChargesController < BaseController
   before_action :set_items, only: [:create]
 
   def create

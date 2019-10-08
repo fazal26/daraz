@@ -1,14 +1,17 @@
-<div class="well productItem">
-  <div class="row">
-    <p class="col-sm-8"><%= product.title.capitalize%></p>
-    <p class="col-sm-4 productPrice"><%= product.price%>$</p>
-  </div>
-  <%= image_tag(product_image(product), class: "productThumbnail")%>
-  <div class="productActions">
-    <%= link_to "Details", product_path(product), class: "btn btn-sm btn-info"%>
-    <% if product.user_id == current_user.id%>
-      <%= link_to "Edit", edit_product_path(product), class: "btn btn-sm btn-warning"%>
-      <%= link_to "Delete",  product_path(product), method: :delete, data: { confirm: "You Sure?"}, class: "btn btn-sm btn-danger"%>
-    <% end %>
+<div class="card p-3 col-3 shadow-lg p-3 bg-white rounded" style="width: 18rem; margin: 20px;">
+  <%= image_tag(product_image(product), class: "card-img-top")%>
+  <div class="card-body">
+    <h5 class="card-title"><%= product.title.capitalize%></h5>
+    <h6><b>Unit Cost: </b><%=product.price%>$</h6>
+    <h6><b>Quantity: </b><%=product.quantity%></h6>
+    <p class="card-text"> <b>Description: </b><%=product.description%></p>
+    <%= link_to "Details", product_path(product), class: "btn btn-secondary"%>
+    <div class="row" style="justify-content: center; margin-top: 10px;">
+      <%= form_with(url: line_items_path, method: :post, model: product) do |f| %>
+        <%= hidden_field_tag "product[product_id]", "#{product.id}" %>
+        <%= f.text_field :quantity, type: :number, required: true, value: 1, min: 1, max: product.quantity %>
+        <%= f.submit "Add to Cart", class: "btn btn-sm btn-primary" %>
+      <% end %>
+    </div>
   </div>
 </div>

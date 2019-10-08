@@ -1,14 +1,16 @@
 require 'open-uri'
 class User < ApplicationRecord
-  after_create :create_cart
+  rolify
 
-  has_one_attached :image
-  has_one :cart
-  has_many :products
-  has_many :comments
-  has_many :orders
+  has_one_attached :image, dependent: :destroy
+  has_one :cart, dependent: :destroy
+  has_many :products, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   validates :username, presence: true
+  
+  accepts_nested_attributes_for :roles
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -66,7 +68,4 @@ class User < ApplicationRecord
     user
   end
 
-  def create_cart
-    self.cart = Cart.new
-  end
 end

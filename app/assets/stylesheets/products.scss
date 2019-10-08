@@ -1,6 +1,7 @@
 .products {
   display: flex;
   flex-flow: wrap;
+  justify-content: center;
 }
 .productItem{
   border-radius: 5px;

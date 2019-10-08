@@ -1,9 +1,9 @@
 class Product < ApplicationRecord
-  searchkick word_start: [:title]
+  # searchkick word_start: [:title]
   belongs_to :user
   
   has_many :comments, dependent: :destroy
-  has_many :line_items 
+  has_many :line_items, dependent: :destroy
   has_many_attached :images
   
   def search_data

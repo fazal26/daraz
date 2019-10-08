@@ -1,8 +1,7 @@
-class ProductsController < ApplicationController
-  def index; end
-  def new; end
-  def create; end
-  def edit; end
-  def update; end
-  def destroy; end
+module Admin
+  class ProductsController < BaseController
+    def index
+      @products = Product.all
+    end
+  end
 end

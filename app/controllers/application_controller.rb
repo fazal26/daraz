@@ -1,12 +1,25 @@
 class ApplicationController < ActionController::Base
-    before_action :configure_permitted_parameters, if: :devise_controller?
-    before_action :authenticate_user!
+  include ApplicationHelper
 
-    protect_from_forgery prepend: true
-
-    protected
+  before_action :configure_permitted_parameters, if: :devise_controller?
   
-    def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :role])
+  protect_from_forgery prepend: true
+
+  def after_sign_in_path_for(resource)
+    if is_admin
+      admin_dashboard_index_path
+    elsif is_seller
+      seller_products_path
+    elsif is_buyer
+      root_path
+    elsif is_guest
+      root_path
     end
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :role])
+  end
 end

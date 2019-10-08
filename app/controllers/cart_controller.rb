@@ -1,4 +1,4 @@
-class CartController < ApplicationController
+class CartController < BaseController
   before_action :set_cart
   
   def show
@@ -7,6 +7,7 @@ class CartController < ApplicationController
 
   def destroy
     @cart.line_items.delete_all
+    redirect_to cart_path, notice: "Cart cleared successfully!"
   end
 
   def apply_coupon
@@ -27,7 +28,7 @@ class CartController < ApplicationController
   private
 
   def set_cart
-    @cart = current_user.cart
+    @cart = current_cart
   end
 
   def cart_params

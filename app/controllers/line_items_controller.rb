@@ -1,4 +1,4 @@
-class LineItemsController < ApplicationController
+class LineItemsController < BaseController
   before_action :set_cart
   before_action :set_item, only: [:destroy, :update]
   before_action :set_product, only: [:create]
@@ -30,7 +30,7 @@ class LineItemsController < ApplicationController
   private
 
   def set_cart
-    @cart = current_user.cart
+    @cart = current_cart
   end
 
   def set_item
@@ -40,7 +40,7 @@ class LineItemsController < ApplicationController
 
   def set_product
     product = Product.find_by(id: line_item_params["product_id"])
-    redirect_to products_path, notice: 'Product cant be added!' if product.user_id == current_user.id
+    # redirect_to products_path, notice: 'Product cant be added!' if product.user_id == current_user.id
   end
 
   def line_item_params

@@ -34,36 +34,46 @@
   </table>
 
   <div class="row">
-    <%= form_with(method: :post, id: "coupn_form",  model: current_user.cart, remote: true) do |f| %>
-    <%= hidden_field_tag "cart[grand_total]", "#{grand_total}" %>
-    <%= f.label :coupon %>
-    <%= f.text_field :coupon_code, type: :text, required: false %>
-    <%= f.submit "Apply Coupon", class: "btn btn-sm btn-success" %>
-    <% end %>
+    <div class="col-6">
+      <%= form_with(method: :post, id: "coupn_form",  model: @cart, remote: true) do |f| %>
+      <%= hidden_field_tag "cart[grand_total]", "#{grand_total}" %>
+      <%= f.label :coupon %>
+      <%= f.text_field :coupon_code, type: :text, required: false %>
+      <%= f.submit "Apply Coupon", class: "btn btn-sm btn-success" %>
+      <% end %>
+    </div>
+    <div class="col-6">
+      <h5>Total: $<%=grand_total%></h5>
+      <h5 id="discounted_price">Grand Total: $<%= @updated_price ? @updated_price : grand_total %></h5>
+    </div>
   </div>
 
   <div class="row">
-    <div class="col">
 
-      <h3>Grand Total: $<%=grand_total%></h3>
-      <h3 id="discounted_price">Discounted Total: $<%=@updated_price%></h3>
-
-    </div>
     <div class="col">
-      <% unless current_user.cart.line_items.empty? %>
-      <%= form_tag charges_path do %>
-      <article>
-        <% if flash[:error].present? %>
-        <div id="error_explanation">
-          <p><%= flash[:error] %></p>
-        </div>
+      <% unless @cart.line_items.empty? %>
+        <%= form_tag charges_path do %>
+          <article>
+            <% if flash[:error].present? %>
+            <div id="error_explanation">
+              <p><%= flash[:error] %></p>
+            </div>
+            <% end %>
+          </article>
+          <% if user_signed_in? %>
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month's subscription" data-amount=<%=@updated_price %> data - locale="auto" ></script>
+
+          <% else %>
+            <%= link_to "Login", new_user_session_path, class: "btn btn-primary mr-2" %>
+            <button type="button" class="btn btn-secondary">Checkout as Guest</button>
+          <% end %>
+
         <% end %>
-      </article>
-
-      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month's subscription" data-amount=<%= grand_total %> data - locale="auto" ></script>
-      <% end %>
       <% end %>
     </div>
+
+
+
   </div>
 </div>
 
@@ -104,13 +114,11 @@
     form = $('#quantity_form');
 
     $("#coupn_form").submit(function (event) {
-
       event.preventDefault();
-
       $.post("/cart/apply_coupon.json",
         $("#coupn_form").serialize(),
         function (data, status) {
-          document.getElementById("discounted_price").innerHTML = "Discounted Price: $" + data;
+          document.getElementById("discounted_price").innerHTML = "Grand Total: $" + data;
         });
 
     });
