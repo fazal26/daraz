@@ -12,65 +12,67 @@
         <th scope="col">Cost</th>
       </tr>
     </thead>
-    <% grand_total = 0 %>
-    <tbody>
-      <% @order_items.each do |item| %>
-      <% total = item.quantity*item.product.price %>
-      <tr>
-        <th scope="row"><%=item.product.title%></th>
-        <td><%=item.product.price%></td>
-        <td><%=item.quantity%></td>
-        <td><%=total%></td>
-      </tr>
-      <% grand_total += total %>
-      <% end %>
-    </tbody>
-  </table>
-
-  <div class="row">
-    <div class="col-6">
-      <%= form_with(method: :post, id: "coupn_form", remote: true) do |f| %>
-      <%= hidden_field_tag "order[grand_total]", "#{grand_total}" %>
-      <%= f.label :coupon %>
-      <%= f.text_field "order[coupon_code]", type: :text, required: false %>
-      <%= f.submit "Apply Coupon", class: "btn btn-sm btn-success" %>
-      <% end %>
-    </div>
-  </div>
-
-
-  <table class="table table-bordered">
-    <tbody>
-      <tr>
-        <th scope="row">Total</th>
-        <td>$<%=grand_total%></td>
-      </tr>
-      <tr>
-        <th scope="row">Coupon</th>
-      </tr>
-      <tr>
-        <th scope="row">Grand Total</th>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="row">
-    <div class="col">
-      <%= form_tag charges_path do %>
-      <article>
-        <% if flash[:error].present? %>
-        <div id="error_explanation">
-          <p><%= flash[:error] %></p>
-        </div>
+    <% if @order_items.present? %>
+      <tbody>
+        <% @order_items.each do |item| %>
+          <% total = item.quantity*item.product.price %>
+          <tr>
+            <th scope="row"><%=item.product.title%></th>
+            <td><%=item.product.price%></td>
+            <td><%=item.quantity%></td>
+            <td><%=total%></td>
+          </tr>
         <% end %>
-      </article>
-      <% if user_signed_in? %>
-      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month's subscription" data-amount=<%=@updated_price %> data - locale="auto" ></script>
+      </tbody>
+    <%end%>
+  </table>
 
-      <% end %>
-      <% end %>
+  <% if @order_items.present? %>
+    <div class="row">
+      <div class="col-6">
+        <%= form_with(method: :post, id: "coupn_form", remote: true) do |f| %>
+        <%= f.label :coupon %>
+        <%= f.text_field "order[coupon_code]", type: :text, required: false %>
+        <%= f.submit "Apply Coupon", class: "btn btn-sm btn-success" %>
+        <% end %>
+      </div>
     </div>
-  </div>
+
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th scope="row">Total</th>
+          <td>$<%=@order.cost%></td>
+        </tr>
+        <tr>
+          <th scope="row">Coupon</th>
+          <td><%=@order.coupon.title%></td>
+        </tr>
+        <tr>
+          <th scope="row">Grand Total</th>
+          <td>$<%= @order.total_cost %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <div class="col">
+        <%= form_tag charges_path do %>
+          <article>
+            <% if flash[:error].present? %>
+            <div id="error_explanation">
+              <p><%= flash[:error] %></p>
+            </div>
+            <% end %>
+          </article>
+          <% if user_signed_in? %>
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month's subscription" data-amount=<%= @order.total_cost %> data-locale="auto" >
+            </script>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
 </div>
 

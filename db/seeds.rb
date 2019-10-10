@@ -28,4 +28,6 @@ laptop = user1.products.create(title: 'laptop', quantity: 30, description: 'leno
 
 Coupon.create(title: 'pk30', discount: 30.0, expire_at: Date.today + 7)
 
+Coupon.create(title: 'pk50', discount: 50.0, expire_at: Date.today + 10)
+
 Coupon.create(title: 'pk10', discount: 10.0, expire_at: Date.today - 7)

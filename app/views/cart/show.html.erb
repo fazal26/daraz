@@ -44,9 +44,7 @@
 
   <div class="row">
     <div class="col">
-      <% unless @cart.line_items.empty? %>
-        <%= link_to 'Checkout', pending_orders_path, method: :get, class: "btn btn-sm btn-primary" %>
-      <% end %>
+      <%= link_to 'Proceed to Order', pending_orders_path, method: :get, class: "btn btn-sm btn-primary" %>
     </div>
   </div>
 

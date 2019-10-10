@@ -1,47 +1,49 @@
 class LineItemsController < BaseController
-  before_action :set_cart
   before_action :set_item, only: [:destroy, :update]
-  before_action :set_product, only: [:create]
 
   def create
-    line_item = @cart.line_items.new(line_item_params)
+    line_item = current_cart.line_items.find_by(product_id: line_item_params['product_id'])
+    
+    if line_item.present?
+      line_item.quantity += line_item_params["quantity"].to_i
+
+    else
+      line_item = current_cart.line_items.new(line_item_params)
+
+    end
 
     if line_item.save
       redirect_to root_path, notice: 'Successfully added to cart'
-    else  
-      redirect_to root_path, alert: 'Error adding product!'
+
+    else
+      redirect_to root_path, alert: '#{line_item.errors.messages[:base][0]}'
+
     end
   end
 
   def update
     if params[:quantity].to_i <= @item.product.quantity 
       @item.update(quantity: params[:quantity])
+      redirect_to cart_path
+
     else
       redirect_to products_path, alert: 'Not enough products available!'  
+    
     end
-
-    redirect_to cart_path
   end
 
   def destroy
     @item.delete
+    
     redirect_to cart_path, notice: 'Item deleted!'
   end
   
   private
 
-  def set_cart
-    @cart = current_cart
-  end
-
   def set_item
-    @item = @cart.line_items.find_by(id: params[:id])
-    redirect_to @cart, alert: "Item not found!" if @item.nil?
-  end
+    @item = current_cart.line_items.find_by(id: params[:id])
 
-  def set_product
-    product = Product.find_by(id: line_item_params["product_id"])
-    # redirect_to products_path, notice: 'Product cant be added!' if product.user_id == current_user.id
+    redirect_to current_cart, alert: "Item not found!" if @item.nil?
   end
 
   def line_item_params
