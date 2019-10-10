@@ -2,11 +2,11 @@
   <div class='row justify-content-around'>
     <h2 class='col-11'> Cart Items </h2>
     <div class='col-1'>
-      <%= link_to "Clear Cart", cart_url, method: :delete, class: "btn btn-sm btn-danger" %>
+      <%= link_to "Discard All Items", cart_url, method: :delete, class: "btn btn-sm btn-danger" %>
     </div>
   </div>
 
-  <table class="table">
+  <table class="table table-bordered">
     <thead class='thead-dark'>
       <tr>
         <th scope="col">Item</th>
@@ -33,48 +33,21 @@
     </tbody>
   </table>
 
-  <div class="row">
-    <div class="col-6">
-      <%= form_with(method: :post, id: "coupn_form",  model: @cart, remote: true) do |f| %>
-      <%= hidden_field_tag "cart[grand_total]", "#{grand_total}" %>
-      <%= f.label :coupon %>
-      <%= f.text_field :coupon_code, type: :text, required: false %>
-      <%= f.submit "Apply Coupon", class: "btn btn-sm btn-success" %>
-      <% end %>
-    </div>
-    <div class="col-6">
-      <h5>Total: $<%=grand_total%></h5>
-      <h5 id="discounted_price">Grand Total: $<%= @updated_price ? @updated_price : grand_total %></h5>
-    </div>
-  </div>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th scope="row">Total</th>
+        <td>$<%=grand_total%></td>
+      </tr>
+    </tbody>
+  </table>
 
   <div class="row">
-
     <div class="col">
-      <% unless @cart.line_items.empty? %>
-        <%= form_tag charges_path do %>
-          <article>
-            <% if flash[:error].present? %>
-            <div id="error_explanation">
-              <p><%= flash[:error] %></p>
-            </div>
-            <% end %>
-          </article>
-          <% if user_signed_in? %>
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month's subscription" data-amount=<%=@updated_price %> data - locale="auto" ></script>
-
-          <% else %>
-            <%= link_to "Login", new_user_session_path, class: "btn btn-primary mr-2" %>
-            <button type="button" class="btn btn-secondary">Checkout as Guest</button>
-          <% end %>
-
-        <% end %>
-      <% end %>
+      <%= link_to 'Proceed to Order', pending_orders_path, method: :get, class: "btn btn-sm btn-primary" %>
     </div>
-
-
-
   </div>
+
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -109,22 +82,6 @@
 </div>
 
 <script>
-  var form;
-  $(document).ready(function () {
-    form = $('#quantity_form');
-
-    $("#coupn_form").submit(function (event) {
-      event.preventDefault();
-      $.post("/cart/apply_coupon.json",
-        $("#coupn_form").serialize(),
-        function (data, status) {
-          document.getElementById("discounted_price").innerHTML = "Grand Total: $" + data;
-        });
-
-    });
-  });
-
-
   $('#exampleModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var title = button.data('title');

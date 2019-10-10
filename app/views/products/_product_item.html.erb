@@ -9,6 +9,7 @@
     <div class="row" style="justify-content: center; margin-top: 10px;">
       <%= form_with(url: line_items_path, method: :post, model: product) do |f| %>
         <%= hidden_field_tag "product[product_id]", "#{product.id}" %>
+        <%= hidden_field_tag "product[price]", "#{product.price}" %>
         <%= f.text_field :quantity, type: :number, required: true, value: 1, min: 1, max: product.quantity %>
         <%= f.submit "Add to Cart", class: "btn btn-sm btn-primary" %>
       <% end %>

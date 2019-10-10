@@ -1,11 +1,11 @@
 class ChargesController < BaseController
-  before_action :set_items, only: [:create]
+  before_action :set_order
+  before_action :set_items
 
   def create
-    redirect_to cart_url, alert: "Cart is empty!" if @items.empty?
+    if is_order_valid?
+      @amount = @order.total_cost
 
-    if is_cart_valid?
-      @amount = 500
       customer = Stripe::Customer.create({
         email: params[:stripeEmail],
         source: params[:stripeToken],
@@ -13,13 +13,12 @@ class ChargesController < BaseController
 
       charge = Stripe::Charge.create({
         customer: customer,
-        amount: @amount,
+        amount: @amount.to_i,
         description: 'Rails Stripe customer',
         currency: 'usd',
       })
 
       place_order
-      redirect_to orders_url, notice: "Your Orders has been shipped!"
 
     else
       redirect_to cart_url, alert: "Required quantity is unavailable."
@@ -33,27 +32,34 @@ class ChargesController < BaseController
 
   private
 
-  def is_cart_valid?
-    valid_cart = true
+  def is_order_valid?
+    valid_order = true
 
     @items.each do |item|
-      valid_cart = false if item.quantity <= 0 || item.quantity > item.product.quantity
+      valid_order = false if item.quantity <= 0 || item.quantity > item.product.quantity
     end
 
-    valid_cart
+    valid_order
   end
 
-  def place_order
-    order = current_user.orders.create
+  def place_order    
     @items.each do |item|
-      item.update(itemable: order)
       item.product.update(quantity: item.product.quantity - item.quantity)
+      item.update(price: item.product.price)
     end
+
+    redirect_to orders_url, alert: "Order Placed!" if @order.update(status: :completed)
+  end
+
+  def set_order
+    @order = current_user.orders.pending.first
+    redirect_to products_url, alert: "No Pending Order!" if @order.nil?
+
   end
 
   def set_items
-    @items = current_user.cart.line_items.includes(:product)
+    @items = @order.line_items.includes(:product)
+    redirect_to cart_url, alert: "Cart is empty!" if @items.empty?
   end
-end
 
-# TODO check from Ahmed Shafiq
+end
