@@ -1,3 +1,5 @@
+require 'open-uri'
+
 Role.create!([{name: "admin"}, {name: "seller"}, {name: "buyer"}, {name: "guest"}])
 
 user0 = User.new({email: "admin1@test.com", username: "super_admin", password: "pass1234$", password_confirmation: "pass1234$"})
@@ -31,3 +33,16 @@ Coupon.create(title: 'pk30', discount: 30.0, expire_at: Date.today + 7)
 Coupon.create(title: 'pk50', discount: 50.0, expire_at: Date.today + 10)
 
 Coupon.create(title: 'pk10', discount: 10.0, expire_at: Date.today - 7)
+
+doc = Nokogiri::HTML(open('https://homeshopping.pk/categories/Mobile-Phones-Price-Pakistan'))
+unscrapped_products = doc.xpath('//div[contains(@class, "product-box")]/div[@class="pad15"]')
+unscrapped_products.each do |product|
+    img = product.xpath('a/figure/img/@data-src')
+    title = product.xpath('h5[@class="ProductDetails"]/a').text
+    price = product.xpath('div/a[@class="price"]').text
+    price = price.sub(/^../, '').tr(',', '').to_f
+    new_product = User.find_by(email: "user1@test.com").products.create(title: title, price: price)
+    downloaded_image = open(img.text)
+    new_product.images.attach(io: downloaded_image  , filename: title + '-img')
+    new_product.save
+end
