@@ -48,11 +48,13 @@ class ChargesController < BaseController
       item.update(price: item.product.price)
     end
 
-    redirect_to orders_url, alert: "Order Placed!" if @order.update(status: :completed)
+    redirect_to orders_url, alert: "Order Placed!" if @order.update(status: :completed) && !current_or_guest_user.guest?
+
+    redirect_to products_url, alert: "Order Placed!" if @order.update(status: :completed) && current_or_guest_user.guest?
   end
 
   def set_order
-    @order = current_user.orders.pending.first
+    @order = current_or_guest_user.orders.pending.first
     redirect_to products_url, alert: "No Pending Order!" if @order.nil?
 
   end

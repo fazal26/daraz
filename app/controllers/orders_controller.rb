@@ -1,5 +1,5 @@
 class OrdersController < BaseController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:index]
   before_action :set_order, except: [:index]
   before_action :set_cart_items, except: [:index]
   before_action :set_order_items, except: [:index]
@@ -31,12 +31,12 @@ class OrdersController < BaseController
   private
   
   def set_order
-    @order = current_user.orders.pending.first 
-    @order ||= current_user.orders.create(status: :pending)
+    @order = current_or_guest_user.orders.pending.first 
+    @order ||= current_or_guest_user.orders.create(status: :pending)
   end
 
   def set_cart_items
-    @cart_items = current_user.cart.line_items.includes(:product)
+    @cart_items = current_cart.line_items.includes(:product)
   end
 
   def set_order_items
@@ -56,8 +56,7 @@ class OrdersController < BaseController
     list_items = @order.line_items.includes(:product).where("product_id = ?", item.product_id).sort
     if list_items.length >= 2
       list_item = list_items.first       
-      list_item.update(quantity: list_item.quantity + item.quantity)
-      item.delete
+      item.delete if list_item.update(quantity: list_item.quantity + item.quantity)
     end
   end
 
@@ -73,13 +72,7 @@ class OrdersController < BaseController
   end
   
   def update_order(total_bill, grand_total, coupon=nil)
-    if coupon
-      @order.update(cost: total_bill, total_cost: grand_total, coupon: coupon)
-
-    else
-      @order.update(cost: total_bill, total_cost: grand_total)
-    
-    end
+    @order.update(cost: total_bill, total_cost: grand_total, coupon: coupon)
   end
 
   def total_bill(items)
@@ -96,10 +89,8 @@ class OrdersController < BaseController
   def coupon_valid?(id = nil)
     if id.nil?
       Coupon.active.find_by(title: order_params[:coupon_code])
-    
     else
       Coupon.active.find_by_id(id)
-    
     end
   end
 

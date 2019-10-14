@@ -1,12 +1,7 @@
 class ProductsController < BaseController
   before_action :set_product, only:[:show, :edit, :update, :destroy]
-  around_action :authorize_user, only: [:update, :edit, :destroy]
 
   def index
-    if current_user.present?
-      current_cart.user = current_user
-    end
-
     if params[:query].present?
       @products = Product.search(params[:query])
     else
@@ -72,15 +67,4 @@ class ProductsController < BaseController
   def product_params
     params.require(:product).permit(:title, :price, :quantity, :description, image:[])
   end
-
-  def authorize_user
-    if @product.present? && @product.user_id == current_user.id
-      yield
-
-    else
-      redirect_to products_url, alert: "Not Authorized :@"
-    
-    end
-  end
-
 end

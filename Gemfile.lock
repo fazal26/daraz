@@ -87,6 +87,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-guests (0.7.0)
+      devise
     elasticsearch (7.3.0)
       elasticsearch-api (= 7.3.0)
       elasticsearch-transport (= 7.3.0)
@@ -262,6 +264,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise
+  devise-guests
   flex-slider-rails
   font-awesome-rails
   jbuilder (~> 2.5)
