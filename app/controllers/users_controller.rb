@@ -13,6 +13,6 @@ class UsersController < ApplicationController
   end
 
   def edit_user_params
-    params.require(:user).permit(:username, :image)
+    params.require(:user).permit(:username, :address, :image)
   end
 end

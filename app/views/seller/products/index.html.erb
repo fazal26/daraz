@@ -1,5 +1,8 @@
 <%= render 'search'%>
-<h1 class="text-center text-primary">All Products</h1>
+<p class="text-center">
+  <%= link_to "Add Product", new_seller_product_url, class: "btn btn-success" %>
+</p>
+<h1 class="text-center">Your Products</h1>
 <div class="products">
   <% @products.each do |product| %>
     <%= render 'product_item', product: product%>

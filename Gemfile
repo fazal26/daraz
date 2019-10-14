@@ -24,6 +24,8 @@ gem 'searchkick'
 gem 'font-awesome-rails'
 gem 'rolify'
 gem 'devise-guests'
+gem 'nokogiri'
+gem 'httparty'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

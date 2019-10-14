@@ -80,9 +80,10 @@
 .login-dark {
 }
 .container {
-  width: 100%;
+  width: auto !important;
   margin-bottom: 1vw;
 }
+
 .container ul li {
 	list-style: none;
 	float: left;
@@ -111,4 +112,13 @@
 }
 .container ul li:nth-child(4) a {
 	color: #cd201f;
+}
+
+.profile-image{
+  width: 15vw;
+  float: right;
+}
+
+.profile-text {
+  font-size: 1.2em;
 }

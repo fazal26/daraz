@@ -17,13 +17,11 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
 
   def self.from_omniauth(auth)
-    method_name = "#{auth.provider}_auth"
-    self.send(method_name, auth) if defined?(method_name)
-    # if auth.provider === 'facebook'
-    #   facebook_auth(auth)
-    # elsif auth.provider === 'google_oauth2'
-    #   google_auth(auth)
-    # end
+    if auth.provider === 'facebook'
+      facebook_auth(auth)
+    elsif auth.provider === 'google_oauth2'
+      google_auth(auth)
+    end
   end
 
   def self.new_with_session(params, session)
@@ -42,28 +40,25 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
       user.username = auth.info.name
       downloaded_image = open(auth.info.image)
-      user.image.attach(io: downloaded_image  , filename: "foo.jpg")
-      # user.image.attach(auth.info.image)
-      # If you are using confirmable and the provider(s) you use validate emails,
-      # uncomment the line below to skip the confirmation emails.
-      # user.skip_confirmation!
+      user.image.attach(io: downloaded_image  , filename: "foo")
+      user.add_role(:buyer)
     end
   end
 
   def self.google_auth(auth)
-    user = User.where(email: data.email).first
-    # user.token = auth.credentials.token
-    # user.expires = auth.credentials.expires
-    # user.expires_at = auth.credentials.expires_at
-    # user.refresh_token = auth.credentials.refresh_token
+    user = User.where(email: auth[:extra][:raw_info][:email]).first
     unless user
-        user = User.create(username: data.name,
-           email: data.email,
+        user = User.create(username: auth[:extra][:raw_info][:name],
+           email: auth[:extra][:raw_info][:email],
            password: Devise.friendly_token[0,20],
         )
-        user.image = data.image
+        user.provider = auth[:provider]
+        user.uid = auth[:uid]
+        downloaded_image = open(auth[:extra][:raw_info][:picture])
+        user.image.attach(io: downloaded_image  , filename: "foo")
+        user.add_role(:buyer)
+        user.save
     end
     user
   end
-
 end

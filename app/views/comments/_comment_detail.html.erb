@@ -1,17 +1,20 @@
-<div class = "row commentContainer" id=<%= comment.id%>>
-  <div class="col-sm-10">
-		<%= image_tag(user_image(comment.user), class: "commentImage")%>
-		<%= comment.body%>
-  </div>
-  <div class="col-sm-2">
-		<div class="row elapsedTime">
-			<p class="float:right"><%= time_ago_in_words comment.created_at%></p> 
-			<% if true %>
+<div class="message-wrap" id=<%= comment.id%>>
+	<div class="msg-wrap">
+		<div class="media msg ">
+			<a class="pull-left" href="#">
+				<img class="media-object"  src="">
+				<%= image_tag(user_image(comment.user), class: "media-object", style:"width: 32px; height: 32px;")%>
+			</a>
+			<div class="media-body">
+				<small class="pull-right time"><%= time_ago_in_words comment.created_at%><i class="fa fa-clock-o"></i>
 				<a href= "<%= edit_product_comment_path(product, comment)%>" data-remote="true">- Edit</a>
 				<span onclick="remove(<%=comment.id%>)">
 					<%= link_to "- Delete", product_comment_path(product, comment), method: :delete, data: { confirm: "You Sure?"}%>
 				</span>
-			<% end %>
+				</small>
+				<h5 class="media-heading"><%= comment.user.username %></h5>
+				<small class="col-lg-10"><%= comment.body %></small>
+			</div>
 		</div>
-  </div>
+	</div>
 </div>

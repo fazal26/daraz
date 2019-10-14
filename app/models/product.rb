@@ -14,8 +14,9 @@ class Product < ApplicationRecord
   end
 
   def self.create_with_image(user, params)
+    byebug
     product = Product.new({title: params[:title], price: params[:price], user_id: user.id, quantity: params[:quantity], description: params[:description]})
-    product.images.attach(params[:image])
+    product.images.attach(params[:image].first)
     product.save && product
   end
 end

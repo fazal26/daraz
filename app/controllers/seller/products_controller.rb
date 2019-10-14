@@ -3,9 +3,9 @@ class Seller::ProductsController < BaseController
 
   def index
     if params[:query].present?
-      @products = Product.search(params[:query])
+      @products = Product.search(params[:query]).where(user_id: current_user.id)
     else
-      @products = Product.all
+      @products = Product.where(user_id: current_user.id)
     end
   end
 
@@ -14,13 +14,15 @@ class Seller::ProductsController < BaseController
   end
 
   def create
-    product = Product.create_with_image(current_user, product_params)
+    current_user.products.create(product_params)
+    # product = Product.create_with_image(current_user, product_params)
 
-    if product.present?
-      redirect_to seller_products_path, notice: "Product was successfully created."
-    else
-      render :new
-    end
+    # if product.present?
+    #   redirect_to seller_products_path, notice: "Product was successfully created."
+    # else
+    #   render :new
+    # end
+    redirect_to seller_products_path
   end
 
   def show
@@ -65,7 +67,7 @@ class Seller::ProductsController < BaseController
   end
 
   def product_params
-    params.require(:product).permit(:title, :price, :quantity, :description, image:[])
+    params.require(:product).permit(:title, :price, :quantity, :description, images:[])
   end
 
 end
