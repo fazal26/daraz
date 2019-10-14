@@ -44,7 +44,14 @@
 
   <div class="row">
     <div class="col">
-      <%= link_to 'Proceed to Order', pending_orders_path, method: :get, class: "btn btn-sm btn-primary" %>
+      <% if user_signed_in? %>
+        <%= link_to 'Proceed to Order', pending_orders_path, method: :get, class: "btn btn-sm btn-primary" %>
+ 
+      <% else %>
+        <%= link_to "Sign In", new_user_session_path, class: "btn btn-sm btn-primary" %>
+        OR 
+        <%= link_to 'Checkout as Guest', pending_orders_path, method: :get, class: "btn btn-sm btn-primary" %>
+      <%end%>
     </div>
   </div>
 

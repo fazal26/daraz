@@ -46,7 +46,7 @@
         </tr>
         <tr>
           <th scope="row">Coupon</th>
-          <td><%=@order.coupon.title%></td>
+          <td><%=@order.coupon ? @order.coupon.title : nil%></td>
         </tr>
         <tr>
           <th scope="row">Grand Total</th>
@@ -65,10 +65,8 @@
             </div>
             <% end %>
           </article>
-          <% if user_signed_in? %>
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month's subscription" data-amount=<%= @order.total_cost %> data-locale="auto" >
-            </script>
-          <% end %>
+          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.configuration.stripe[:publishable_key] %>" data-description="A month's subscription" data-amount=<%= @order.total_cost %> data-locale="auto" >
+          </script>
         <% end %>
       </div>
     </div>
