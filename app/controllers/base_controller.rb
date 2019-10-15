@@ -4,14 +4,15 @@ class BaseController < ApplicationController
   before_action :current_cart
 
   def current_or_guest_user
-    if current_user && session[:guest_user_id] && session[:guest_user_id] != current_user.id
-      User.find_by(id: session[:guest_user_id]).delete if session[:guest_user_id].present?
-      @user = current_user
-    else
-      @user = guest_user
-    end
+    # if current_user && session[:guest_user_id] && session[:guest_user_id] != current_user.id
+    #   User.find_by(id: session[:guest_user_id]).delete if session[:guest_user_id].present?
+    #   @user = current_user
+    # else
+    #   @user = guest_user
+    # end
 
-    @user
+    # @user
+    current_user
   end
   
   def guest_user(with_retry = true)

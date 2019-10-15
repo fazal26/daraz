@@ -8,6 +8,68 @@
 @import "datatables";
 @import "font-awesome";
 
+.navbar {
+  padding: 2px;
+}
+
+.authLinksContainer {
+  height: 2vw;
+  background: #ECECEC;
+  .authLinks {
+    float: right;
+    a{
+      color: black;
+      padding-right: 2vw;
+    }
+    a:hover {
+      color: #ed7b11;
+    }
+  }
+}
+
+.cart-icon{
+  color: #ed7b11;
+  font-size: 2vw;
+  padding: 5px;
+}
+
+.search-bar{
+  width: 50vw;
+  background: #f2eeeb;
+  height: 3vw;
+  border: none;
+  border-radius: 3px;
+}
+
+.search-btn {
+  // color: white;
+  height: 3vw;
+  border: none;
+  border-radius: 3px;
+
+}
+
+ul {
+  background: white;
+  width: 50vw;
+  font-size: 1em;
+  li {
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.logo {
+  width: 8vw;
+  padding-right: 2vw;
+}
+
+.profileLink {
+  height: 2vw;
+
+}
+
 .nav>li>a:hover, .nav>li>a:focus, .nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
   background:#fff;
 }
@@ -45,7 +107,7 @@
   z-index: 9;
 }
 .img-rounded{
-  width: 3vw;
+  width: 2vw;
 }
 
 .counter {
@@ -77,8 +139,6 @@
   color: #4ad1e5;
 }
 
-.login-dark {
-}
 .container {
   width: auto !important;
   margin-bottom: 1vw;
