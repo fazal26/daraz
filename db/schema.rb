@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_070814) do
     t.datetime "updated_at", null: false
     t.string "provider", limit: 20
     t.string "uid", limit: 100
+    t.boolean "guest", default: false
     t.string "address", limit: 100
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
