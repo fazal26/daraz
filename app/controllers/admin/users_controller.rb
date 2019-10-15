@@ -3,6 +3,7 @@ module Admin
     def index
       @users = User.all
     end
+
     def destroy
       user = User.find_by(id: user_params[:id])
       user.destroy
@@ -11,7 +12,8 @@ module Admin
 
     private
     def user_params
-      params.permit(:id)
+      params.require(:user).permit(:id, :image, :username, :address)
     end
+
   end
 end

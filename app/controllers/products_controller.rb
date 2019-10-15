@@ -2,10 +2,20 @@ class ProductsController < BaseController
   before_action :set_product, only:[:show, :edit, :update, :destroy]
 
   def index
+    @titles = Product.pluck(:title)
+    if current_user.present?
+      current_cart.user = current_user
+    end
+
     if params[:query].present?
       @products = Product.search(params[:query])
     else
-      @products = Product.all
+      @products = Product.limit(3)
+    end
+
+    respond_to do |format|
+      format.html { render(products: @products) }
+      format.json { render json: {titles:  @titles} }
     end
   end
 

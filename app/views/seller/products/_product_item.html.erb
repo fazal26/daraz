@@ -1,5 +1,5 @@
 <div class="card p-3 col-3 shadow-lg p-3 bg-white rounded" style="width: 18rem; margin: 20px;">
-  <%= image_tag(product_image(product), class: "card-img-top")%>
+  <%= image_tag product.images.first %>
   <div class="card-body">
     <h5 class="card-title"><%= product.title.capitalize%></h5>
     <h6><b>Unit Cost: </b><%=product.price%>$</h6>

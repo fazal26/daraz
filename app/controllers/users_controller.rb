@@ -3,6 +3,8 @@ class UsersController < ApplicationController
 
   def update
     @user.update!(edit_user_params)
+    @user.image.attach(edit_user_params[:image])
+    @user.save
     redirect_to user_path(@user)    
   end
 

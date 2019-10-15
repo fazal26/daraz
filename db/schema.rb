@@ -78,6 +78,10 @@ ActiveRecord::Schema.define(version: 2019_10_11_070814) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
+    t.bigint "coupon_id"
+    t.decimal "cost", precision: 12, scale: 2
+    t.decimal "total_cost", precision: 12, scale: 2
+    t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -147,6 +151,7 @@ ActiveRecord::Schema.define(version: 2019_10_11_070814) do
   add_foreign_key "comments", "products"
   add_foreign_key "comments", "users"
   add_foreign_key "line_items", "products"
+  add_foreign_key "orders", "coupons"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "users"
   add_foreign_key "user_coupons", "coupons"

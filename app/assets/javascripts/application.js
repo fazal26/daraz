@@ -1,9 +1,9 @@
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require activestorage
 //= requrie bootstrap-sprockets
 //= require jquery.flexslider
-//= requrie typeahead.bundle.js
 //= require popper
 //= require bootstrap
 //= require_tree .
