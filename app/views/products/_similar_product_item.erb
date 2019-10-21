@@ -1,0 +1,9 @@
+<div class="similar-product-container m-1">
+  <%= link_to product_path(product) do %>
+    <p class="text-center"><%= image_tag(product_image(product), class: "similar-product-thumbnail")%></p>
+  <% end %>
+  <div class="card-body text-center p-0">
+    <h5 class="card-title mt-0"><%= product.title.capitalize%></h5>
+    <h6 class="product-info mt-0"><%=product.price%>$</h6>
+  </div>
+</div>

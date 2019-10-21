@@ -3,16 +3,20 @@
 		<div class="media msg ">
 			<a class="pull-left" href="#">
 				<img class="media-object"  src="">
-				<%= image_tag(user_image(comment.user), class: "media-object", style:"width: 32px; height: 32px;")%>
+				<%= image_tag(user_image(comment.user), class: "media-object commentImage")%>
 			</a>
 			<div class="media-body">
-				<small class="pull-right time"><%= time_ago_in_words comment.created_at%><i class="fa fa-clock-o"></i>
-				<a href= "<%= edit_product_comment_path(product, comment)%>" data-remote="true">- Edit</a>
-				<span onclick="remove(<%=comment.id%>)">
-					<%= link_to "- Delete", product_comment_path(product, comment), method: :delete, data: { confirm: "You Sure?"}%>
-				</span>
+				<small class="pull-right time"><%= time_ago_in_words comment.created_at%><i class="fa fa-clock-o pl-1"></i>
+				<%= comment.user_id%>
+
+				<% if true%>
+					<a href= "<%= edit_product_comment_path(product, comment)%>" data-remote="true"> Edit</a>
+					<span onclick="remove(<%=comment.id%>)">
+						<%= link_to "- Delete", product_comment_path(product, comment), method: :delete, data: { confirm: "You Sure?"}%>
+					</span>
+				<% end %>
 				</small>
-				<h5 class="media-heading"><%= comment.user.username %></h5>
+				<h6 class="media-heading"><%= comment.user.username %></h6>
 				<small class="col-lg-10"><%= comment.body %></small>
 			</div>
 		</div>

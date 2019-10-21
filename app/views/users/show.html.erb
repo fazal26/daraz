@@ -1,23 +1,27 @@
 <div class="row">
   <div class="col-sm-6">
-    <img src="http://thetransformedmale.files.wordpress.com/2011/06/bruce-wayne-armani.jpg"
-    alt="" class="img-rounded img-responsive profile-image" />
+    <%= image_tag current_user.image, class: "img-responsive profile-image" %>
   </div>
   <div class="col-sm-6 profile-text">
     <blockquote>
-      <p><%= current_user.username.capitalize %></p> <small><cite title="Source Title"><%= current_user.address || "Address not available"%>  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
+      <p><%= current_user.username.capitalize %></p> 
+      <small>
+        <cite title="Source Title">
+        <%= current_user.address || "Address not available"%>
+        <i class="fa fa-map-marker"></i>
+        </cite>
+      </small>
     </blockquote>
     <p>
-      <i class="glyphicon glyphicon-envelope"></i>
-      <%= current_user.email %>
-      <br/> <i class="glyphicon glyphicon-globe"></i> <%= current_user.roles.first.name.capitalize %>
-      <br/> <i class="glyphicon glyphicon-gift"></i> <%= current_user.created_at.strftime("%B-%e-%Y")%>
+      <i class="fa fa-envelope"></i><%= current_user.email %>
+      <br/> <i class="fa fa-user-circle"></i> <%= current_user.roles.first.name.capitalize %>
+      <br/> <i class="fa fa-hourglass-half"></i> <%= current_user.created_at.strftime("%B-%e-%Y")%>
     </p>
   </div>
 </div>
 <br/>
 <% if @user.id == current_user.id%>
   <div style="text-align:center">
-    <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-warning"%>
+    <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-dark"%>
   </div>
 <% end %>

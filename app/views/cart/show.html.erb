@@ -1,9 +1,6 @@
 <div class="container">
   <div class='row justify-content-around'>
-    <h2 class='col-11'> Cart Items </h2>
-    <div class='col-1'>
-      <%= link_to "Discard All Items", cart_url, method: :delete, class: "btn btn-sm btn-danger" %>
-    </div>
+    <%= link_to "Discard All Items", cart_url, method: :delete, class: "mb-1 btn btn-sm btn-danger" %>
   </div>
 
   <table class="table table-bordered">
@@ -49,7 +46,7 @@
  
       <% else %>
         <%= link_to "Sign In", new_user_session_path, class: "btn btn-sm btn-primary" %>
-        OR 
+        or
         <%= link_to 'Checkout as Guest', pending_orders_path, method: :get, class: "btn btn-sm btn-primary" %>
       <%end%>
     </div>

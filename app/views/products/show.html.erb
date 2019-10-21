@@ -1,29 +1,47 @@
-<h1 class="text-primary text-center">Product Details</h1>
-<div class="well row">
-  <div class="col-sm-8">
+<div class="row p-0 m-0">
+  <div class="col-sm-3 p-0">
+    <div id="productShowCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <% @product.images.each_with_index do |image, i| %>
+          <% if i == 0 %>
+            <div class="carousel-item active">
+          <% else %>
+            <div class="carousel-item">
+          <% end %>
+            <%= image_tag(image, class: "product-slider-images") %>
+          </div>
+        <% end %>
+      </div>
+      <a class="carousel-control-prev" href="#productShowCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#productShowCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+  <div class="col-sm-6 p-0 pt-5">
     <h3><%=@product.title.capitalize %></h3>
-    <h4>Title : <%=@product.description %></h4>
-    <h4>Available Products: <%=@product.quantity %></h4>
-    <h4>Unit Price: <%= @product.price%>$</h4>
-  </div>
-  <div class="col-sm-4">
-  <%= form_with(url: line_items_path, method: :post, model: @product) do |f| %>
-    <%= hidden_field_tag "product[product_id]", "#{@product.id}" %>
-    <%= f.label :quantity %>
-    <%= f.text_field :quantity, type: :number, required: true, value: 1, min: 1, max: @product.quantity %>
-    <%= f.submit "Add to Cart", class: "btn btn-sm btn-primary" %>
-    <% end %>
-  </div>
-</div>
+    <span>Detail : <%=@product.description %></span>
+    <p>Available Products: <%=@product.quantity %></p>
+    <p>Unit Price: <span class="product-info"><%= @product.price %>$</span></p>
 
-<div class="flexslider" >
-  <ul class="slides productImages">
-    <% @product.images.each do |image| %>
-      <li><%= image_tag(image) %></li>
+    <div class="commentsContainer">
+      <%= render 'comments', {product: @product, comments: @comments}%>
+    </div>
+  </div>
+  <div class="col-sm-3 p-0">
+    <%= form_with(url: line_items_path, method: :post, model: @product) do |f| %>
+      <%= hidden_field_tag "product[product_id]", "#{@product.id}" %>
+      <%= f.text_field :quantity, type: :number, required: true, value: 1, min: 1, max: @product.quantity,
+      class: "form-control-sm bg-light ml-5", style:"width:5vw" %>
+      <%= f.submit "Add to Cart", class: "btn btn-dark" %>
     <% end %>
-  </ul>
-</div>
-
-<div class="commentsContainer">
-  <%= render 'comments', {product: @product, comments: @comments}%>
+    <div class="mt-3 ml-5">
+      <h5 class="ml-5">Similar Products</h5>
+      <%= render @similar_products %>
+    </div>
+  </div>
 </div>

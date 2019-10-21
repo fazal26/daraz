@@ -17,7 +17,7 @@
       <tr>
         <td><%= i+1 %></td>
         <td><%=promo.title%></td>
-        <td><%= image_tag(promo_image(promo), class: "card-img-top")%></td>
+        <td><%= image_tag(promo_image(promo), class: "promotion-list-image")%></td>
         <td><%=promo.expire_at%></td>
         <td>
           <%= link_to "Edit", edit_admin_promotion_path(promo), class: "btn btn-success"%> 

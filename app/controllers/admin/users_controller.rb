@@ -14,6 +14,5 @@ module Admin
     def user_params
       params.require(:user).permit(:id, :image, :username, :address)
     end
-
   end
 end

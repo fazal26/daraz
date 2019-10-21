@@ -8,8 +8,18 @@
 @import "datatables";
 @import "font-awesome";
 
+.ui-autocomplete {
+  max-height: 10vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+html .ui-autocomplete {
+  height: 10vw;
+}
+
 .navbar {
   padding: 2px;
+  margin-bottom: 1vw;
 }
 
 .authLinksContainer {
@@ -61,8 +71,8 @@ ul {
 }
 
 .logo {
-  width: 8vw;
-  padding-right: 2vw;
+  width: 11vw;
+  padding-right: 1vw;
 }
 
 .profileLink {
@@ -141,7 +151,6 @@ ul {
 
 .container {
   width: auto !important;
-  margin-bottom: 1vw;
 }
 
 .container ul li {
@@ -175,10 +184,38 @@ ul {
 }
 
 .profile-image{
-  width: 15vw;
+  width: 20vw;
   float: right;
 }
 
 .profile-text {
   font-size: 1.2em;
+}
+
+.product-info{
+  color: #149c38;
+}
+
+.promotion-images{
+  width: 99vw;
+}
+
+.noHorizontalScroll{
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.promo-images {
+  width: 100vw;
+  max-height: 70vh;
+}
+
+.product-slider-images {
+  width: 24vw;
+  height: 50vh !important;
+  border-radius: 3px;
+}
+
+ul.pagination{
+  margin: auto;
 }

@@ -1,7 +1,7 @@
-<div class="row">
+<div class="row noHorizontalScroll">
 	<div class="col-sm-4"></div>
 	<div class="login-dark p-3 shadow-lg rounded col-sm-4">
-		<div class="pt-3"><h2 class="text-center">Sign Up</h2></div>
+		<div class="pt-1"><h2 class="text-center">Register</h2></div>
 		<%= form_for(resource, as: resource_name, url: registration_path(resource_name), class:"mt-5") do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -33,7 +33,7 @@
 			</div>
 
 			<div class="actions">
-				<%= f.submit "Register" ,class:"mt-5 btn btn-sm btn-light col"%>
+				<%= f.submit "Register" ,class:"btn btn-sm btn-light col"%>
 			</div>
 		<% end %>
 		<%= render "devise/shared/links" %>

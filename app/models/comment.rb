@@ -6,6 +6,6 @@ class Comment < ApplicationRecord
 
   private
     def broadcast
-      CommentBroadcastJob.perform_later(self.product.id, self.id);
+      CommentBroadcastJob.perform_later(self.product.id, self.id, user_id);
     end
 end
