@@ -10,6 +10,10 @@ module Admin
     end
 
     def create
+      if promotion_params[:expire_at] < DateTime.now
+        redirect_to new_admin_promotion_path, alert: "Invalid Expiry Date" 
+        return
+      end
       promotion = Promotion.new({title: promotion_params[:title], expire_at: promotion_params[:expire_at], image: promotion_params[:image]})
       promotion.save
 

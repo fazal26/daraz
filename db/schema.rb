@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_07_085415) do
+ActiveRecord::Schema.define(version: 2019_10_11_070814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,10 @@ ActiveRecord::Schema.define(version: 2019_10_07_085415) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
+    t.bigint "coupon_id"
+    t.decimal "cost", precision: 12, scale: 2
+    t.decimal "total_cost", precision: 12, scale: 2
+    t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -129,6 +133,8 @@ ActiveRecord::Schema.define(version: 2019_10_07_085415) do
     t.datetime "updated_at", null: false
     t.string "provider", limit: 20
     t.string "uid", limit: 100
+    t.boolean "guest", default: false
+    t.string "address", limit: 100
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -146,6 +152,7 @@ ActiveRecord::Schema.define(version: 2019_10_07_085415) do
   add_foreign_key "comments", "products"
   add_foreign_key "comments", "users"
   add_foreign_key "line_items", "products"
+  add_foreign_key "orders", "coupons"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "users"
   add_foreign_key "user_coupons", "coupons"

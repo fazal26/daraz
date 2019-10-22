@@ -5,17 +5,14 @@ class Product < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :line_items, dependent: :destroy
   has_many_attached :images
-  
+
+  paginates_per 10
+  scope :latest, -> { order("created_at DESC") }
+
   def search_data
     { 
       title: title,
       price: price
     } 
-  end
-
-  def self.create_with_image(user, params)
-    product = Product.new({title: params[:title], price: params[:price], user_id: user.id, quantity: params[:quantity], description: params[:description]})
-    product.images.attach(params[:image])
-    product.save && product
   end
 end

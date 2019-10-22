@@ -1,8 +1,3 @@
-<div class="row">
-  <div class="col text-center text-primary">
-    <h2>Welcome <%= current_user.username%></h2>
-  </div>
-</div>
 <div class="row text-center">
   <div class="col">
     <div class="counter">
@@ -57,17 +52,8 @@
 <div>
   <p class="text-center admin-actions">
   <%= link_to "Products", products_path, class: "btn btn-success"%>
-  <%= link_to "Manage Promotions", admin_promotions_path, class: "btn btn-default"%>
+  <%= link_to "Manage Promotions", admin_promotions_path, class: "btn btn-danger"%>
   <%= link_to "Manage Coupons", admin_coupons_path, class: "btn btn-info"%>
   <%= link_to "Manage Users", admin_users_path, class: "btn btn-warning"%>
   </p>
-</div>
-
-<div class="container h-100">
-  <div class="d-flex justify-content-center h-100">
-    <div class="searchbar">
-      <input class="search_input" type="text" name="" placeholder="Search...">
-      <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
-    </div>
-  </div>
 </div>

@@ -1,50 +1,27 @@
 class ProductsController < BaseController
-  before_action :set_product, only:[:show, :edit, :update, :destroy]
+  before_action :set_product, only:[:show]
 
   def index
+    @titles = Product.pluck(:title)
+    @promotions = Promotion.active
+    @new_arrivals = Product.latest.limit(5)
+    current_cart.user = current_user if current_user.present?
+
     if params[:query].present?
       @products = Product.search(params[:query])
     else
-      @products = Product.all
+      @products = Product.page params[:page]
     end
-  end
-
-  def new
-    @product = Product.new
-  end
-
-  def create
-    product = Product.create_with_image(current_user, product_params)
-
-    if product.present?
-      redirect_to product, notice: "Product was successfully created."
-    else
-      render :new
+    respond_to do |format|
+      format.html { @products }
+      format.json { render json: {titles:  @titles} }
     end
   end
 
   def show
+    @similar_products = Product.order("RANDOM()").limit(5)
     @comments = @product.comments.reverse
     @comment = Comment.new
-  end
-
-  def update
-    @product.update!({title: product_params[:title], price: product_params[:price], user_id: current_user.id})
-    @product.images.attach(product_params[:image]) if product_params[:image].present?
-    
-    if @product.save
-      redirect_to products_path, notice: "Product successfully updated!"
-    else
-      redirect_to products_path, alert: "Product not updated!"
-    end
-  end
-
-  def destroy
-    if @product.destroy
-      redirect_to products_path, notice: "Product successfully deleted!"
-    else
-      redirect_to products_path, alert: "Product not deleted!"
-    end
   end
 
   def autocomplete

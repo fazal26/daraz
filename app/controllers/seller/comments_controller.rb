@@ -27,8 +27,8 @@ class Seller::CommentsController < BaseController
 
   private
     def comment_params
-      params.fetch(:comment).permit(:body, :product_id, :id).tap do |whitelist|
-        whitelist[:user_id] = current_user.id
-      end
+      puts "-0-0-0-0-0-0-0-\n"*10, params.inspect
+      byebug
+      params.fetch(:comment).permit(:body, :product_id, :id, :user_id)
     end
 end

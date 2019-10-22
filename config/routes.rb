@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :coupons
     resources :promotions
     resources :users, only: [:index, :destroy]
-    resources :dashboard, only: [:index]
+    resource :dashboard, only:[:index] 
   end
 
   namespace :seller do 
@@ -39,6 +39,5 @@ Rails.application.routes.draw do
   end
   resources :charges, only: [:create]
   
-  get '*path' => redirect('/')
   root to: 'products#index'
 end

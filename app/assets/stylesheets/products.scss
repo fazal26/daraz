@@ -21,9 +21,27 @@
 .editProductImages {
   max-width:10vw
 }
-.productThumbnail {
-  width:20vw;
+.product-thumbnail {
+  width:15vw !important;
+  height: 18vw;
+}
+.similar-product-thumbnail {
+  width:10vw;
+}
+.similar-product-container {
+  border: rgb(185, 180, 180);
+  border-style: solid;
+  width: 80%;
+  border-width: 0.1vw;
 }
 .productImages {
   width:80vw;
+}
+
+.productImagesItem{
+  width: 24vw;
+}
+
+.flexslider .slides > li {
+  display: inline !important;
 }

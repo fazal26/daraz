@@ -1,19 +1,27 @@
-<div class="well">
-  <div class ="row">
-    <div class ="col-sm-7">
-      <div class = "row">
-        <div class = col-sm-4>
-          <h3>Username: </h3>
-          <h3>Email: </h3>
-        </div>
-
-        <div class = col-sm-8>
-          <% if @user.username.present? %>
-            <h3><%= @user.username%></h3>
-          <% end %>
-         <h3><%= @user.email%></h3>
-        </div>
-      </div>
-    </div>
+<div class="row">
+  <div class="col-sm-6">
+    <%= image_tag current_user.image, class: "img-responsive profile-image" %>
+  </div>
+  <div class="col-sm-6 profile-text">
+    <blockquote>
+      <p><%= current_user.username.capitalize %></p> 
+      <small>
+        <cite title="Source Title">
+        <%= current_user.address || "Address not available"%>
+        <i class="fa fa-map-marker"></i>
+        </cite>
+      </small>
+    </blockquote>
+    <p>
+      <i class="fa fa-envelope"></i><%= current_user.email %>
+      <br/> <i class="fa fa-user-circle"></i> <%= current_user.roles.first.name.capitalize %>
+      <br/> <i class="fa fa-hourglass-half"></i> <%= current_user.created_at.strftime("%B-%e-%Y")%>
+    </p>
   </div>
 </div>
+<br/>
+<% if @user.id == current_user.id%>
+  <div style="text-align:center">
+    <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-dark"%>
+  </div>
+<% end %>

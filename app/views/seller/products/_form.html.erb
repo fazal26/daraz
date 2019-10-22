@@ -1,4 +1,4 @@
-<div style="width: 50vw">
+<div class="container" style="width: 30vw !important">
   <%= form_for [:seller, @product] do |f| %>
   <div class="field">
     <%= f.label :title %><br />
@@ -7,12 +7,12 @@
 
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_field :description, type: :text, required: true, class: "form-group form-control form-control-sm bg-light" %>
+    <%= f.text_area :description, type: :text, required: true, class: "form-group form-control form-control-sm bg-light" %>
   </div>
 
   <div class="field">
     <%= f.label :price %><br />
-    <%= f.text_field :price, type: :decimal, required: true, class: "form-group form-control form-control-sm bg-light" %>
+    <%= f.text_field :price, type: :number, required: true, class: "form-group form-control form-control-sm bg-light" %>
   </div>
 
   <div class="field">
@@ -22,7 +22,7 @@
 
   <div class="field">
     <%= f.label :attachements %><br />
-    <%= f.file_field :image, multiple: true, required: true, class: "btn btn-success" %>
+    <%= f.file_field :images, multiple: true, required: true, class: "btn btn-success" %>
   </div>
   <br>
   <div class="field">

@@ -1,7 +1,18 @@
-<%= render 'search'%>
-<h1 class="text-center text-primary">All Products</h1>
+<% if !@promotions.empty?%>
+  <%= render 'promotions', promotions: @promotions%>
+<% end %>
+<h3 class="text-center mt-5"><u>New Arrivals</u></h3>
 <div class="products">
-  <% @products.each do |product| %>
+  <% @new_arrivals.each do |product| %>
     <%= render 'product_item', product: product%>
   <%end%>
+</div>
+<h5 class="text-center mt-1"><u><%= link_to "See all products", products_path%></u></h5>
+<div class="products">
+  <% @products.each do |x| %>
+    <%= render 'product_item', product: x%>
+  <%end%>
+</div>
+<div >
+  <%= paginate @products%>
 </div>

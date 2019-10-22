@@ -1,14 +1,17 @@
-<div class="well productItem">
-  <div class="row">
-    <p class="col-sm-8"><%= product.title.capitalize%></p>
-    <p class="col-sm-4 productPrice"><%= product.price%>$</p>
+<div class="card p-2 col-2 shadow-lg p-2 bg-white rounded" style="width: 18rem; margin: 20px;">
+  <%= link_to product_path(product) do %>
+    <%= image_tag(product_image(product), class: "card-img-top product-thumbnail")%>
+  <% end %>
+  <div class="card-body">
+    <h5 class="card-title"><%= product.title.capitalize%></h5>
+    <h6><b>Unit Cost: </b><%=product.price%>$</h6>
+    <h6><b>Quantity: </b><%=product.quantity%></h6>
+    <p class="card-text"> <b>Description: </b><%=product.description%></p>
   </div>
-  <%= image_tag(product, class: "productThumbnail")%>
-  <div class="productActions">
-    <%= link_to "Details", product_path(product), class: "btn btn-sm btn-info"%>
-    <% if product.user_id == current_user.id%>
+    <p class="text-center">
+      <%= link_to "Details", seller_product_path(product), class: "btn btn-sm btn-info"%>
       <%= link_to "Edit", edit_seller_product_path(product), class: "btn btn-sm btn-warning"%>
       <%= link_to "Delete",  seller_product_path(product), method: :delete, data: { confirm: "You Sure?"}, class: "btn btn-sm btn-danger"%>
-    <% end %>
-  </div>
+  </p>
 </div>
+
