@@ -1,7 +1,6 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require jquery.flexslider-min    
 //= require activestorage
 //= requrie bootstrap-sprockets
 //= require popper

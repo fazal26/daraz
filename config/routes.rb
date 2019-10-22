@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :coupons
     resources :promotions
     resources :users, only: [:index, :destroy]
-    resource :dashboard, only:[:index] 
+    resource :dashboard, controller: :dashboard, only: [:show]
   end
 
   namespace :seller do 

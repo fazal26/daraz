@@ -7,9 +7,7 @@
 			</a>
 			<div class="media-body">
 				<small class="pull-right time"><%= time_ago_in_words comment.created_at%><i class="fa fa-clock-o pl-1"></i>
-				<%= comment.user_id%>
-
-				<% if true%>
+				<% if true %>
 					<a href= "<%= edit_product_comment_path(product, comment)%>" data-remote="true"> Edit</a>
 					<span onclick="remove(<%=comment.id%>)">
 						<%= link_to "- Delete", product_comment_path(product, comment), method: :delete, data: { confirm: "You Sure?"}%>

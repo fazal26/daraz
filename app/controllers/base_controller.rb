@@ -4,15 +4,17 @@ class BaseController < ApplicationController
   before_action :current_cart
 
   def current_or_guest_user
-    # if current_user && session[:guest_user_id] && session[:guest_user_id] != current_user.id
-    #   User.find_by(id: session[:guest_user_id]).delete if session[:guest_user_id].present?
-    #   @user = current_user
-    # else
-    #   @user = guest_user
-    # end
+    if current_user && session[:guest_user_id] && session[:guest_user_id] != current_user.id
+      if session[:guest_user_id].present?
+        session_guest_user = User.find_by(id: session[:guest_user_id]) 
+        session_guest_user.present? && session_guest_user.delete
+      end 
+      @user = current_user
+    else
+      @user = guest_user
+    end
 
-    # @users
-    current_user
+    @user
   end
   
   def guest_user(with_retry = true)
@@ -59,7 +61,7 @@ class BaseController < ApplicationController
   private
 
   def authenticate_buyer
-    # redirect_to products_path if user_signed_in? && !current_user.has_role?(:buyer)
+    user_signed_in? && !current_user.has_role?(:buyer)
   end
 
   def create_guest_user
