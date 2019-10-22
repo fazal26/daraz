@@ -4,7 +4,6 @@
  */
 
 @import "bootstrap";
-@import "flexslider";
 @import "datatables";
 @import "font-awesome";
 
@@ -218,4 +217,5 @@ ul {
 
 ul.pagination{
   margin: auto;
+  width: fit-content;
 }

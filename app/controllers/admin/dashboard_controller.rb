@@ -1,6 +1,6 @@
 module Admin
   class DashboardController < BaseController
-    def index
+    def show
       @user_count = User.count
       @product_count = Product.count
       @promotion_count = Promotion.count
