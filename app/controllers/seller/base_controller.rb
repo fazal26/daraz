@@ -4,6 +4,6 @@ class Seller::BaseController < ApplicationController
 
   private
     def authenticate_seller
-      redirect_to(products_path) && return if !current_user.has_role?(:seller)
+      return redirect_to(products_path) if !current_user.has_role?(:seller)
     end
 end

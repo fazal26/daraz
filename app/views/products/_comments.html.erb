@@ -1,5 +1,9 @@
 <h5 class = "text-center">Reviews</h5>
-<%= render 'new_comment' %>
+<% if user_signed_in? %>
+  <%= render 'new_comment' %>
+<% else %>
+  <p class="text-center text-danger"><u>You must be logged in to comment</u></p>
+<%end%>
 <div id="commentBox">
   <% comments.each do |comment|%>
     <%= render 'comments/comment_detail' , {product: product, comment:comment}%>
