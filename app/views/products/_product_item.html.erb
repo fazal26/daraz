@@ -5,13 +5,17 @@
   <div class="card-body text-center">
     <h5 class="card-title"><%= product.title.capitalize%></h5>
     <h6 class="product-info"><%=product.price%>$</h6>
-    <div class="row" style="justify-content: center; margin-top: 10px;">
-      <%= form_with(url: line_items_path, method: :post, model: product) do |f| %>
-        <%= hidden_field_tag "product[product_id]", "#{product.id}" %>
-        <%= hidden_field_tag "product[price]", "#{product.price}" %>
-        <%= f.text_field :quantity, type: :number, required: true, value: 1, min: 1, max: product.quantity, class: "form-control-sm bg-light", style:"width:5vw" %>
-        <%= f.submit "Add", class: "btn btn-dark" %>
-      <% end %>
-    </div>
+    <% if product.quantity > 0 %>
+      <div class="row" style="justify-content: center; margin-top: 10px;">
+        <%= form_with(url: line_items_path, method: :post, model: product) do |f| %>
+          <%= hidden_field_tag "product[product_id]", "#{product.id}" %>
+          <%= hidden_field_tag "product[price]", "#{product.price}" %>
+          <%= f.text_field :quantity, type: :number, required: true, value: 1, min: 1, max: product.quantity, class: "form-control-sm bg-light", style:"width:5vw" %>
+          <%= f.submit "Add", class: "btn btn-dark" %>
+        <% end %>
+      </div>
+    <% else %>
+      <p>Out of Order</p>
+    <% end %>
   </div>
 </div>

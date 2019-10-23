@@ -7,7 +7,9 @@ class Product < ApplicationRecord
   has_many_attached :images
 
   paginates_per 10
+
   scope :latest, -> { order("created_at DESC") }
+  scope :available, -> { where("quantity > 0") }
 
   def search_data
     { 

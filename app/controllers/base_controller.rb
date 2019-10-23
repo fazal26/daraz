@@ -6,8 +6,8 @@ class BaseController < ApplicationController
   def current_or_guest_user
     if current_user && session[:guest_user_id] && session[:guest_user_id] != current_user.id
       if session[:guest_user_id].present?
-        session_guest_user = User.find_by(id: session[:guest_user_id]) 
-        session_guest_user.present? && session_guest_user.delete
+        session_guest_user = User.find_by(id: session[:guest_user_id])
+        session_guest_user.delete if session_guest_user.present?
       end 
       @user = current_user
     else
@@ -26,36 +26,38 @@ class BaseController < ApplicationController
   end
 
   def current_cart
-    if user_signed_in? && current_user.cart.present?
-      @current_cart = current_user.cart
-      if session[:cart_id].present? && session[:cart_id] != current_user.cart.id 
-        cart = Cart.find_by(id: session[:cart_id])
-        session[:cart_id] = nil
-        if cart.present?
-          @current_cart.line_items << cart.line_items
-          cart.line_items.delete_all
-          cart.delete
+    if current_or_guest_user.has_role?(:buyer)
+      if user_signed_in? && current_user.cart.present?
+        @current_cart = current_user.cart
+        if session[:guest_cart_id].present? && session[:guest_cart_id] != current_user.cart.id 
+          cart = Cart.find_by(id: session[:guest_cart_id])
+          if cart.present?
+            session[:guest_cart_id] = nil
+            @current_cart.line_items << cart.line_items
+            cart.line_items.delete_all
+            cart.delete
+          end
         end
-      end
-    elsif session[:cart_id].present?
-      cart = Cart.find_by(id: session[:cart_id])
-      if cart.present?
-        @current_cart = cart
+      elsif session[:guest_cart_id].present?  # Guest User
+        cart = Cart.find_by(id: session[:guest_cart_id])
+        if cart.present?
+          @current_cart = cart
+        else
+          session[:guest_cart_id] = nil
+          @current_cart = Cart.create
+          session[:guest_cart_id] = @current_cart.id
+        end
       else
-        session[:cart_id] = nil
         @current_cart = Cart.create
-        session[:cart_id] = @current_cart.id
+        session[:guest_cart_id] = @current_cart.id
       end
-    else
-      @current_cart = Cart.create
-      session[:cart_id] = @current_cart.id
+      if user_signed_in?
+        current_user.cart = @current_cart
+        # session[:guest_cart_id] = nil
+      end
+      @current_cart.user = @user
+      @current_cart
     end
-    if user_signed_in?
-      current_user.cart = @current_cart
-      # session[:cart_id] = nil
-    end
-    @current_cart.user = @user
-    @current_cart
   end
 
   private
@@ -67,7 +69,7 @@ class BaseController < ApplicationController
   def create_guest_user
     user = User.new(username: "guest", email: "guest_#{Time.now.to_i}#{rand(100)}@daraz.pk", guest: true)
     user.add_role(:buyer)
-    user.save!(:validate => false)
+    user.save!(validate: false)
     session[:guest_user_id] = user.id
     user
   end
