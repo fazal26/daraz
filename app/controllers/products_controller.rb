@@ -5,7 +5,6 @@ class ProductsController < BaseController
     @titles = Product.pluck(:title)
     @promotions = Promotion.active
     @new_arrivals = Product.available.latest.limit(5)
-    current_cart.user = current_user if current_user.present?
 
     if params[:query].present?
       @products = Product.search(params[:query])

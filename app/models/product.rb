@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   searchkick word_start: [:title]
+
   belongs_to :user
   
   has_many :comments, dependent: :destroy
@@ -8,8 +9,8 @@ class Product < ApplicationRecord
 
   paginates_per 10
 
-  scope :latest, -> { order("created_at DESC") }
-  scope :available, -> { where("quantity > 0") }
+  scope :latest, -> { order(created_at: :desc) }
+  scope :available, -> { where("products.quantity > 0") }
 
   def search_data
     { 

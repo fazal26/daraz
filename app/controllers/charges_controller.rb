@@ -3,26 +3,23 @@ class ChargesController < BaseController
   before_action :set_items
 
   def create
-    if is_order_valid?
-      @amount = @order.total_cost
+    return redirect_to cart_url, alert: "Required quantity is unavailable." if !valid_order?
+    
+    @amount = @order.total_cost
 
-      customer = Stripe::Customer.create({
-        email: params[:stripeEmail],
-        source: params[:stripeToken],
-      })
+    customer = Stripe::Customer.create({
+      email: params[:stripeEmail],
+      source: params[:stripeToken],
+    })
 
-      charge = Stripe::Charge.create({
-        customer: customer,
-        amount: @amount.to_i,
-        description: 'Rails Stripe customer',
-        currency: 'usd',
-      })
+    charge = Stripe::Charge.create({
+      customer: customer,
+      amount: @amount.to_i,
+      description: 'Rails Stripe customer',
+      currency: 'usd',
+    })
 
-      place_order
-
-    else
-      redirect_to cart_url, alert: "Required quantity is unavailable."
-    end
+    place_order
 
   rescue Stripe::CardError => e
     flash[:error] = e.message
@@ -32,14 +29,14 @@ class ChargesController < BaseController
 
   private
 
-  def is_order_valid?
-    valid_order = true
+  def valid_order?
+    is_valid = true
 
     @items.each do |item|
-      valid_order = false if item.quantity <= 0 || item.quantity > item.product.quantity
+      is_valid = false if item.quantity <= 0 || item.quantity > item.product.quantity
     end
 
-    valid_order
+    is_valid
   end
 
   def place_order    
@@ -56,7 +53,6 @@ class ChargesController < BaseController
   def set_order
     @order = current_or_guest_user.orders.pending.first
     redirect_to products_url, alert: "No Pending Order!" if @order.nil?
-
   end
 
   def set_items

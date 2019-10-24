@@ -19,9 +19,9 @@ custard = user1.products.create(title: 'custard', quantity: 100, description: 'n
 cheese = user1.products.create(title: 'cheese', quantity: 100, description: 'nestle cheeese', price: 160.00)
 cooper = user1.products.create(title: 'cooper', quantity: 100, description: 'nestle cooper', price: 160.00)
 laptop = user1.products.create(title: 'laptop', quantity: 30, description: 'lenovo laptop', price: 160000.00)
-Coupon.create(title: 'pk30', discount: 30.0, expire_at: Date.today + 10)
-Coupon.create(title: 'pk50', discount: 50.0, expire_at: Date.today + 10)
-Coupon.create(title: 'pk10', discount: 10.0, expire_at: Date.today + 10)
+Coupon.create(title: 'pk30', discount: 30.0, expire_at: Date.current + 10)
+Coupon.create(title: 'pk50', discount: 50.0, expire_at: Date.current + 10)
+Coupon.create(title: 'pk10', discount: 10.0, expire_at: Date.current + 10)
 
 require 'open-uri'
 

@@ -11,23 +11,28 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
+
 gem 'bootstrap', '~> 4.0.0'
-gem 'popper_js', '~> 1.14.5'
-gem 'devise'
-gem 'jquery-rails'
-gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2'
-gem 'stripe'
-gem 'flex-slider-rails'
-gem 'jquery-datatables'
-gem 'searchkick'
 gem 'font-awesome-rails'
-gem 'rolify'
-gem 'devise-guests'
-gem 'nokogiri'
-gem 'httparty'
+gem 'jquery-datatables'
+gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'kaminari'
+gem 'popper_js', '~> 1.14.5'
+
+gem 'devise'
+gem 'devise-guests'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'rolify'
+
+gem 'stripe'
+
+gem 'searchkick'
+
+gem 'nokogiri'
+gem 'httparty'
+
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
