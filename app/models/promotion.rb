@@ -3,5 +3,5 @@ class Promotion < ApplicationRecord
 
   validates :title, :expire_at, presence: true
 
-  scope :active, -> { where("expire_at > ? ", Date.today) }
+  scope :active, -> { where("expire_at > ? ", Date.current) }
 end

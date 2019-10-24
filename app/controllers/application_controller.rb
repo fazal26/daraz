@@ -10,9 +10,7 @@ class ApplicationController < ActionController::Base
       admin_dashboard_path
     elsif is_seller
       seller_products_path
-    elsif is_buyer
-      root_path
-    elsif is_guest
+    else
       root_path
     end
   end

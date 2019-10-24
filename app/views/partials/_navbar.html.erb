@@ -12,6 +12,8 @@
   <div class="collapse navbar-collapse" id="navbar" style="display: flex; justify-content: center;">
     <%= link_to image_tag("logo.png", class:"logo"), root_path %>
     <%= render 'partials/search' %>
-    <%= link_to "", cart_path, class: "fa fa-shopping-cart cart-icon" %>
+    <% if current_or_guest_user.has_role?(:buyer) %>
+      <%= link_to "", cart_path, class: "fa fa-shopping-cart cart-icon" %>
+    <% end %>
   </div>
 </nav>

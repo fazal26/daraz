@@ -27,8 +27,6 @@ class Seller::CommentsController < BaseController
 
   private
     def comment_params
-      puts "-0-0-0-0-0-0-0-\n"*10, params.inspect
-      byebug
       params.fetch(:comment).permit(:body, :product_id, :id, :user_id)
     end
 end

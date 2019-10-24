@@ -115,7 +115,7 @@
       $.post("/orders/apply_coupon.json",
         $("#coupn_form").serialize(),
         function (data, status) {
-          if (data === 0) {
+          if (data == 0) {
             data = grand_total;
           }
           document.getElementById("discounted_price").innerHTML = "$" + data;

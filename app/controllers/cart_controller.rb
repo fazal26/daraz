@@ -1,5 +1,4 @@
 class CartController < BaseController
-  
   def show
     @cart_items = current_cart.line_items.includes(:product)
   end
