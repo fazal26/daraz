@@ -7,7 +7,9 @@ class ProductsController < BaseController
     @new_arrivals = Product.available.latest.limit(5)
 
     if params[:query].present?
-      @products = Product.search(params[:query])
+      # @products = Product.search(params[:query])
+      product = Product.find_by(title: params[:query])
+      redirect_to product_path(product) if product.present?
     else
       @products = Product.available.page params[:page]
     end

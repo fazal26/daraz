@@ -28,7 +28,7 @@ gem 'rolify'
 
 gem 'stripe'
 
-gem 'searchkick'
+# gem 'searchkick'
 
 gem 'nokogiri'
 gem 'httparty'

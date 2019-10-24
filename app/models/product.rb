@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  searchkick word_start: [:title]
+  # searchkick word_start: [:title]
 
   belongs_to :user
   
