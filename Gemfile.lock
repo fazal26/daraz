@@ -102,7 +102,6 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.11.1)
-    flex-slider-rails (2.7.0)
     font-awesome-rails (4.7.0.5)
       railties (>= 3.2, < 6.1)
     globalid (0.4.2)
@@ -269,7 +268,7 @@ GEM
       railties (>= 5.0)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.4)
+    websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -285,7 +284,6 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   devise-guests
-  flex-slider-rails
   font-awesome-rails
   httparty
   jbuilder (~> 2.5)
